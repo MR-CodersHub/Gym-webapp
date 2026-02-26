@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+    <title>Pricing | GYM RAT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,900&family=Inter:wght@400;700&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primaryRed: '#e63946',
+                        darkBg: '#0f0f0f',
+                        cardBg: '#161616',
+                        textGray: '#a0a0a0',
+                    },
+                    fontFamily: {
+                        montserrat: ['Montserrat', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        .text-outline {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+            color: transparent;
+        }
+
+        .bg-grid {
+            background-image: radial-gradient(circle, #222 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+    </style>
+</head>
+
+<body class="bg-darkBg text-white font-inter selection:bg-primaryRed overflow-x-hidden">
+    <!-- Navigation Header -->
+    <header
+        class="fixed top-0 w-full z-50 bg-darkBg/95 backdrop-blur-md border-b border-white/10 px-[4%] xl:px-[8%] py-5 flex justify-between items-center transition-all">
+        <a href="index.html"
+            class="flex items-center gap-2.5 font-montserrat font-black text-3xl italic tracking-tighter">
+            <img src="./assets/img/logo.png" alt="logo" class="h-12 w-12">
+            <span>GYM<span class="text-primaryRed">RAT</span></span>
+        </a>
+        <nav class="hidden lg:block">
+            <ul
+                class="flex items-center lg:gap-4 xl:gap-8 uppercase lg:text-[11px] xl:text-sm font-bold tracking-wider">
+                <li><a href="index.html" class="hover:text-primaryRed transition-colors">Home</a></li>
+                <li><a href="recovery.html" class="hover:text-primaryRed transition-colors">Home2</a></li>
+                <li><a href="about.html" class="hover:text-primaryRed transition-colors">About</a></li>
+                <li><a href="program.html" class="hover:text-primaryRed transition-colors">Programs</a></li>
+                <li><a href="services.html" class="hover:text-primaryRed transition-colors">Services</a>
+                </li>
+                <li><a href="contact.html" class="hover:text-primaryRed transition-colors">Contact</a></li>
+                <li><a href="#plans"
+                        class="bg-primaryRed px-6 py-3 rounded-full font-black text-xs hover:brightness-110 shadow-lg shadow-primaryRed/20 transition-all uppercase">Join
+                        Now</a></li>
+            </ul>
+        </nav>
+
+        <!-- Hamburger Menu Button -->
+        <button id="mobile-menu-btn" class="lg:hidden text-2xl text-white ml-4 focus:outline-none"
+            aria-expanded="false">
+            <i id="icon-open" class="fa-solid fa-bars"></i>
+            <i id="icon-close" class="fa-solid fa-xmark hidden"></i>
+        </button>
+
+        <!-- Auth Icon & Dropdown -->
+        <div id="auth-container" class="relative ml-4 cursor-pointer group hidden lg:block">
+            <div id="auth-icon" class="text-2xl hover:text-primaryRed transition-colors">
+                <i class="fa-solid fa-circle-user"></i>
+            </div>
+            <ul id="auth-dropdown"
+                class="absolute right-0 mt-4 w-48 bg-cardBg border border-white/10 py-3 hidden flex-col shadow-2xl origin-top-right z-[100] rounded-lg">
+                <!-- Content injected by auth.js -->
+            </ul>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Container -->
+    <div id="mobile-menu"
+        class="fixed top-[88px] left-0 w-full bg-darkBg/95 backdrop-blur-md border-b border-white/10 p-6 hidden flex-col gap-4 transform -translate-y-5 opacity-0 transition-all duration-300 lg:hidden z-40 shadow-2xl">
+        <nav class="flex flex-col gap-6 uppercase text-sm font-bold tracking-wider text-center">
+            <a href="index.html" class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">Home</a>
+            <a href="recovery.html"
+                class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">Home2</a>
+            <a href="about.html" class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">About</a>
+            <a href="program.html"
+                class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">Programs</a>
+            <a href="services.html"
+                class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">Services</a>
+            <a href="contact.html"
+                class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">Contact</a>
+
+            <!-- Auth for Mobile (Simplified) -->
+            <a href="login.html"
+                class="hover:text-primaryRed transition-colors py-2 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-circle-user"></i> Account
+            </a>
+
+            <a href="#plans"
+                class="bg-primaryRed px-6 py-4 rounded-full font-black text-xs hover:brightness-110 shadow-lg shadow-primaryRed/20 transition-all uppercase mt-2">
+                Join Now
+            </a>
+        </nav>
+    </div>
+
+    <section id="plans" class="pt-24 pb-12 px-[5%] text-center relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20 pointer-events-none">
+            <img src="https://images.unsplash.com/photo-1517963879433-6ad2b056d712?q=80&w=1600"
+                class="w-full h-full object-cover" alt="Background">
+        </div>
+        <div class="relative z-10 max-w-[1600px] mx-auto">
+            <h3 class="text-primaryRed font-black uppercase tracking-[0.5em] text-xs mb-4">Membership Plans</h3>
+            <h1 class="font-montserrat text-6xl md:text-8xl font-black uppercase italic leading-none tracking-tighter">
+                INVEST IN <span class="text-primaryRed">IRON</span>
+            </h1>
+        </div>
+    </section>
+
+    <section class="py-20 px-[5%] max-w-[1600px] mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+            <div
+                class="bg-cardBg border border-white/5 p-10 rounded-[2.5rem] flex flex-col justify-between hover:border-primaryRed/50 transition-all group relative overflow-hidden">
+                <div class="absolute -right-8 -top-8 w-32 h-32 bg-white/5 rounded-full blur-3xl"></div>
+                <div>
+                    <h4 class="font-montserrat text-2xl font-black uppercase italic mb-2">Starter</h4>
+                    <p class="text-primaryRed text-[10px] font-black uppercase tracking-[2px] mb-8">BASIC ONLY ACCESS
+                    </p>
+                    <div class="flex items-baseline gap-2 mb-10">
+                        <span class="text-6xl font-black font-montserrat italic">$29</span>
+                        <span class="text-gray-500 font-bold uppercase text-xs">/ Month</span>
+                    </div>
+                    <ul class="space-y-5 mb-10">
+                        <li class="flex items-center gap-4 text-sm font-bold text-gray-300">
+                            <i class="fa-solid fa-check-circle text-primaryRed"></i> 24/7 Access
+                        </li>
+                        <li class="flex items-center gap-4 text-sm font-bold text-gray-300">
+                            <i class="fa-solid fa-check-circle text-primaryRed"></i> Standard Locker Access
+                        </li>
+                        <li class="flex items-center gap-4 text-sm font-bold text-gray-300">
+                            <i class="fa-solid fa-check-circle text-primaryRed"></i> All Free Weights & Machines
+                        </li>
+                        <li
+                            class="flex items-center gap-4 text-sm font-bold text-white/20 italic border-t border-white/5 pt-4">
+                            <i class="fa-solid fa-times-circle"></i> No Group Classes
+                        </li>
+                    </ul>
+                </div>
+                <button data-plan="starter" data-price="29"
+                    class="select-plan-btn w-full py-5 border border-white/10 font-black uppercase text-xs tracking-[3px] group-hover:bg-primaryRed group-hover:border-primaryRed transition-all rounded-full">Select
+                    Plan</button>
+            </div>
+
+            <div
+                class="bg-primaryRed p-10 rounded-[2.5rem] flex flex-col justify-between relative shadow-2xl shadow-primaryRed/40 scale-105 z-20">
+                <div
+                    class="absolute -top-5 left-1/2 -translate-x-1/2 bg-white text-black px-6 py-2 text-[10px] font-black uppercase italic tracking-widest rounded-full shadow-xl">
+                    MOST POPULAR</div>
+                <div>
+                    <h4 class="font-montserrat text-2xl font-black uppercase italic mb-2">Elite</h4>
+                    <p class="text-black text-[10px] font-black uppercase tracking-[2px] mb-8">PREMIUM ONLY FEATURES</p>
+                    <div class="flex items-baseline gap-2 mb-10">
+                        <span class="text-6xl font-black font-montserrat italic">$59</span>
+                        <span class="text-white/80 font-bold uppercase text-xs">/ Month</span>
+                    </div>
+                    <ul class="space-y-5 mb-10">
+                        <li class="flex items-center gap-4 text-sm font-black uppercase italic">
+                            <i class="fa-solid fa-star text-white"></i> Everything in Standard
+                        </li>
+                        <li class="flex items-center gap-4 text-sm font-black uppercase italic">
+                            <i class="fa-solid fa-star text-white"></i> Unlimited Group Classes
+                        </li>
+                        <li class="flex items-center gap-4 text-sm font-black uppercase italic">
+                            <i class="fa-solid fa-star text-white"></i> 1 Personal Training Session
+                        </li>
+                        <li class="flex items-center gap-4 text-sm font-black uppercase italic">
+                            <i class="fa-solid fa-star text-white"></i> Recovery Zone Access
+                        </li>
+                    </ul>
+                </div>
+                <button data-plan="elite" data-price="59"
+                    class="select-plan-btn w-full py-5 bg-black text-white font-black uppercase text-xs tracking-[3px] hover:bg-white hover:text-black transition-all rounded-full shadow-2xl">Join
+                    The Pack</button>
+            </div>
+
+            <div
+                class="bg-cardBg border border-white/5 p-10 rounded-[2.5rem] flex flex-col justify-between hover:border-primaryRed/50 transition-all group relative overflow-hidden">
+                <div class="absolute -right-8 -top-8 w-32 h-32 bg-primaryRed/10 rounded-full blur-3xl"></div>
+                <div>
+                    <h4 class="font-montserrat text-2xl font-black uppercase italic mb-2">Immortal</h4>
+                    <p class="text-primaryRed text-[10px] font-black uppercase tracking-[2px] mb-8">THE ABSOLUTE BEST
+                    </p>
+                    <div class="flex items-baseline gap-2 mb-10">
+                        <span class="text-6xl font-black font-montserrat italic">$99</span>
+                        <span class="text-gray-500 font-bold uppercase text-xs">/ Month</span>
+                    </div>
+                    <ul class="space-y-5 mb-10">
+                        <li class="flex items-center gap-4 text-sm font-bold text-gray-300">
+                            <i class="fa-solid fa-crown text-primaryRed"></i> Everything in Elite
+                        </li>
+                        <li class="flex items-center gap-4 text-sm font-bold text-gray-300">
+                            <i class="fa-solid fa-crown text-primaryRed"></i> Unlimited Personal Training
+                        </li>
+                        <li class="flex items-center gap-4 text-sm font-bold text-gray-300">
+                            <i class="fa-solid fa-crown text-primaryRed"></i> Dedicated VIP Locker
+                        </li>
+                        <li class="flex items-center gap-4 text-sm font-bold text-gray-300">
+                            <i class="fa-solid fa-crown text-primaryRed"></i> Nutrition & Meal Prep
+                        </li>
+                    </ul>
+                </div>
+                <button data-plan="immortal" data-price="99"
+                    class="select-plan-btn w-full py-5 border border-white/10 font-black uppercase text-xs tracking-[3px] group-hover:bg-primaryRed group-hover:border-primaryRed transition-all rounded-full">Select
+                    Plan</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Additional Space Filler / Layout Improvement -->
+    <section class="py-20 px-[5%] max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-cardBg/50 p-8 rounded-3xl border border-white/5 text-center">
+            <i class="fa-solid fa-shield-halved text-2xl text-primaryRed mb-4"></i>
+            <h5 class="font-black uppercase italic text-sm mb-2">Secure Billing</h5>
+            <p class="text-xs text-gray-500">Industry standard encrypted payments.</p>
+        </div>
+        <div class="bg-cardBg/50 p-8 rounded-3xl border border-white/5 text-center">
+            <i class="fa-solid fa-rotate text-2xl text-primaryRed mb-4"></i>
+            <h5 class="font-black uppercase italic text-sm mb-2">Pause Anytime</h5>
+            <p class="text-xs text-gray-500">Going on holiday? Pause your sub.</p>
+        </div>
+        <div class="bg-cardBg/50 p-8 rounded-3xl border border-white/5 text-center">
+            <i class="fa-solid fa-user-group text-2xl text-primaryRed mb-4"></i>
+            <h5 class="font-black uppercase italic text-sm mb-2">Guest Passes</h5>
+            <p class="text-xs text-gray-500">Bring a friend to the forge.</p>
+        </div>
+        <div class="bg-cardBg/50 p-8 rounded-3xl border border-white/5 text-center">
+            <i class="fa-solid fa-bolt text-2xl text-primaryRed mb-4"></i>
+            <h5 class="font-black uppercase italic text-sm mb-2">Instant Access</h5>
+            <p class="text-xs text-gray-500">Start training the second you join.</p>
+        </div>
+    </section>
+
+    <section class="py-20 px-[5%] max-w-[1200px] mx-auto hidden lg:block">
+        <h2 class="font-montserrat text-4xl font-black uppercase italic text-center mb-16">Compare <span
+                class="text-primaryRed">Features</span></h2>
+        <table class="w-full border-collapse">
+            <thead>
+                <tr
+                    class="text-left border-b border-white/10 uppercase text-[10px] font-black tracking-widest text-gray-500">
+                    <th class="py-6">Facility Amenities</th>
+                    <th class="py-6 text-center">Starter</th>
+                    <th class="py-6 text-center text-white italic">Elite</th>
+                    <th class="py-6 text-center">Immortal</th>
+                </tr>
+            </thead>
+            <tbody class="text-sm font-bold uppercase italic">
+                <tr class="border-b border-white/5">
+                    <td class="py-6">24/7 Biometric Access</td>
+                    <td class="text-center text-primaryRed"><i class="fa-solid fa-check"></i></td>
+                    <td class="text-center text-primaryRed"><i class="fa-solid fa-check"></i></td>
+                    <td class="text-center text-primaryRed"><i class="fa-solid fa-check"></i></td>
+                </tr>
+                <tr class="border-b border-white/5">
+                    <td class="py-6">Top-Tier Equipment</td>
+                    <td class="text-center text-primaryRed"><i class="fa-solid fa-check"></i></td>
+                    <td class="text-center text-primaryRed"><i class="fa-solid fa-check"></i></td>
+                    <td class="text-center text-primaryRed"><i class="fa-solid fa-check"></i></td>
+                </tr>
+                <tr class="border-b border-white/5">
+                    <td class="py-6">Premium Locker Rooms</td>
+                    <td class="text-center text-gray-700">Standard</td>
+                    <td class="text-center text-white">Full Access</td>
+                    <td class="text-center text-primaryRed font-black">VIP Dedicated</td>
+                </tr>
+                <tr>
+                    <td class="py-6">Certified Coaching Support</td>
+                    <td class="text-center text-gray-700"><i class="fa-solid fa-minus"></i></td>
+                    <td class="text-center text-white">1 Session/Mo</td>
+                    <td class="text-center text-primaryRed font-black">Unlimited</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <footer class="bg-[#0a0a0a] border-t border-white/5 pt-20 pb-10 px-[8%]">
+        <div class="max-w-7xl mx-auto">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+
+                <div class="space-y-6">
+                    <a href="index.html" class="flex items-center gap-3">
+                        <img src="./assets/img/logo.png" alt="Gym Rat Logo" class="h-10 w-auto">
+                        <span class="font-montserrat text-2xl font-black italic text-white tracking-tighter">
+                            GYM<span class="text-primaryRed">RAT</span>
+                        </span>
+                    </a>
+                    <div class="flex gap-4">
+                        <a href="#"
+                            class="w-10 h-10 bg-[#1a1a1a] flex items-center justify-center text-white hover:bg-primaryRed transition-all">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 bg-[#1a1a1a] flex items-center justify-center text-white hover:bg-primaryRed transition-all">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 bg-[#1a1a1a] flex items-center justify-center text-white hover:bg-primaryRed transition-all">
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-montserrat text-lg font-black uppercase italic text-white mb-6">Quick Links</h4>
+                    <ul class="space-y-4 text-sm text-textGray">
+                        <li><a href="index.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Home</a>
+                        </li>
+                        <li><a href="recovery.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Home2</a>
+                        </li>
+                        <li><a href="about.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">About
+                                Us</a></li>
+                        <li><a href="program.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Programs</a>
+                        </li>
+                        <li><a href="services.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Services</a>
+                        </li>
+                        <li><a href="pricing.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Membership</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-montserrat text-lg font-black uppercase italic text-white mb-6">Support</h4>
+                    <ul class="space-y-4 text-sm text-textGray">
+                        <li><a href="policy.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Privacy
+                                Policy</a></li>
+                        <li><a href="terms.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Terms
+                                of Service</a></li>
+                        <li><a href="contact.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-montserrat text-lg font-black uppercase italic text-white mb-6">The Forge</h4>
+                    <ul class="space-y-4 text-sm text-textGray">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot text-primaryRed mt-1"></i>
+                            <span>123 Iron Street,<br>Muscle Bay, FL 33101</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-phone text-primaryRed"></i>
+                            <span>+1 (555) 800-IRON</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-envelope text-primaryRed"></i>
+                            <span>support@gymrat.com</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div
+                class="pt-8 border-t border-white/5 text-center items-center gap-4 text-[10px] font-bold uppercase tracking-[2px] text-white/30">
+                <p>© 2024 GYM RAT ELITE FITNESS. ALL RIGHTS RESERVED.</p>
+                
+            </div>
+        </div>
+    </footer>
+    <script type="module" src="assets/js/auth.js"></script>
+    <script type="module" src="assets/js/pricing.js"></script>
+    <script src="assets/js/navbar.js"></script>
+</body>
+
+</html>

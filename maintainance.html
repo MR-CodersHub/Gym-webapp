@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recalibrating | GYM RAT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,900;1,900&family=Inter:wght@400;700&display=swap"
+        rel="stylesheet">
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primaryRed: '#e63946', darkBg: '#0a0a0a' },
+                    fontFamily: { montserrat: ['Montserrat', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+    <!-- Custom Styles -->
+    <style>
+        @keyframes pulse-slow {
+
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 0.1;
+            }
+        }
+
+        .bg-grid {
+            background-image: linear-gradient(to right, #1a1a1a 1px, transparent 1px),
+                linear-gradient(to bottom, #1a1a1a 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .glitch {
+            animation: glitch 1s linear infinite;
+        }
+
+        @keyframes glitch {
+
+            2%,
+            64% {
+                transform: translate(2px, 0) skew(0deg);
+            }
+
+            4%,
+            60% {
+                transform: translate(-2px, 0) skew(0deg);
+            }
+
+            62% {
+                transform: translate(0, 0) skew(5deg);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-darkBg text-white overflow-hidden font-inter">
+
+    <!-- Background Grid -->
+    <div class="fixed inset-0 bg-grid z-0"></div>
+    <div class="fixed inset-0 bg-gradient-to-t from-darkBg via-transparent to-darkBg z-0"></div>
+
+    <!-- Main Content -->
+    <main class="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 text-center">
+
+        <div class="mb-8 relative">
+            <div class="absolute inset-0 bg-primaryRed blur-3xl opacity-20 animate-pulse"></div>
+            <i class="fa-solid fa-screwdriver-wrench text-6xl md:text-8xl text-primaryRed glitch relative"></i>
+        </div>
+
+        <div class="space-y-4">
+            <h3 class="text-primaryRed font-black uppercase tracking-[0.6em] text-xs">System Status: Offline</h3>
+            <h1 class="font-montserrat text-5xl md:text-8xl font-black uppercase italic leading-tight tracking-tighter">
+                UPGRADING <br> THE <span class="text-primaryRed">FORGE</span>
+            </h1>
+            <p class="text-gray-500 max-w-lg mx-auto text-sm md:text-base font-medium leading-relaxed">
+                We're currently adding more iron to the servers. Our digital facility is undergoing scheduled
+                maintenance to serve you better. We'll be back at full strength shortly.
+            </p>
+        </div>
+
+        <div class="w-full max-w-md mt-12 bg-white/5 h-1 overflow-hidden relative">
+            <div class="absolute inset-y-0 left-0 bg-primaryRed w-2/3 shadow-[0_0_15px_#e63946]"></div>
+        </div>
+        <div
+            class="mt-4 flex justify-between w-full max-w-md text-[10px] font-black uppercase tracking-widest text-gray-600 italic">
+            <span>Optimization: 65%</span>
+            <span>Back Online: Soon</span>
+        </div>
+
+        <div class="mt-16 pt-10 border-t border-white/5 flex flex-col items-center gap-6">
+            <p class="text-xs font-bold uppercase tracking-widest text-gray-400">Need immediate support?</p>
+            <div class="flex gap-8">
+                <a href="mailto:support@gymratelite.com" class="hover:text-primaryRed transition-colors text-xl"><i
+                        class="fa-solid fa-envelope"></i></a>
+                <a href="#" class="hover:text-primaryRed transition-colors text-xl"><i
+                        class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-primaryRed transition-colors text-xl"><i
+                        class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Branding Footer -->
+    <div class="fixed bottom-10 left-10 opacity-10 select-none hidden lg:block">
+        <h2 class="font-montserrat text-8xl font-black italic uppercase">GYMRAT</h2>
+    </div>
+
+</body>
+
+</html>

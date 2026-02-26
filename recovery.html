@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+    <title>The Recovery Vault | Gym Rat Elite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,900&family=Inter:wght@400;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Tailwind Custom Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primaryRed: '#e63946',
+                        darkBg: '#0f0f0f',
+                        cardBg: '#161616',
+                        textGray: '#a0a0a0',
+                        accentCyan: '#00f2ff',
+                    },
+                    fontFamily: {
+                        montserrat: ['Montserrat', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        .text-outline {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+            color: transparent;
+        }
+
+        .bg-vault-grid {
+            background-image: radial-gradient(circle, #333 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .glass-panel {
+            background: rgba(22, 22, 22, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        @keyframes scan {
+            0% {
+                transform: translateY(-100%);
+            }
+
+            100% {
+                transform: translateY(100%);
+            }
+        }
+
+        .scan-line {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #e63946, transparent);
+            width: 100%;
+            position: absolute;
+            animation: scan 4s linear infinite;
+        }
+    </style>
+</head>
+
+<body class="bg-darkBg text-white font-inter selection:bg-primaryRed overflow-x-hidden">
+
+    <!-- Navigation Header -->
+    <header
+        class="fixed top-0 w-full z-50 bg-darkBg/95 backdrop-blur-md border-b border-white/10 px-[4%] xl:px-[8%] py-5 flex justify-between items-center transition-all">
+        <a href="index.html"
+            class="flex items-center gap-2.5 font-montserrat font-black text-3xl italic tracking-tighter">
+            <img src="./assets/img/logo.png" alt="logo" class="h-12 w-12">
+            <span>GYM<span class="text-primaryRed">RAT</span></span>
+        </a>
+        <nav class="hidden lg:block">
+            <ul
+                class="flex items-center lg:gap-4 xl:gap-8 uppercase lg:text-[11px] xl:text-sm font-bold tracking-wider">
+                <li><a href="index.html" class="hover:text-primaryRed transition-colors">Home</a></li>
+                <li><a href="recovery.html" class="hover:text-primaryRed transition-colors">Home2</a></li>
+                <li><a href="about.html" class="hover:text-primaryRed transition-colors">About</a></li>
+                <li><a href="program.html" class="hover:text-primaryRed transition-colors">Programs</a></li>
+                <li><a href="services.html" class="hover:text-primaryRed transition-colors">Services</a></li>
+                <li><a href="contact.html" class="hover:text-primaryRed transition-colors">Contact</a></li>
+                <li><a href="pricing.html"
+                        class="bg-primaryRed px-6 py-3 rounded-full font-black text-xs hover:brightness-110 shadow-lg shadow-primaryRed/20 transition-all uppercase">Join
+                        Now</a></li>
+            </ul>
+        </nav>
+
+        <!-- Hamburger Menu Button -->
+        <button id="mobile-menu-btn" class="lg:hidden text-2xl text-white ml-4 focus:outline-none"
+            aria-expanded="false">
+            <i id="icon-open" class="fa-solid fa-bars"></i>
+            <i id="icon-close" class="fa-solid fa-xmark hidden"></i>
+        </button>
+
+        <!-- Auth Icon & Dropdown -->
+        <div id="auth-container" class="relative ml-4 cursor-pointer group hidden lg:block">
+            <div id="auth-icon" class="text-2xl hover:text-primaryRed transition-colors">
+                <i class="fa-solid fa-circle-user"></i>
+            </div>
+            <ul id="auth-dropdown"
+                class="absolute right-0 mt-4 w-48 bg-cardBg border border-white/10 py-3 hidden flex-col shadow-2xl origin-top-right z-[100] rounded-lg">
+                <!-- Content injected by auth.js -->
+            </ul>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Container -->
+    <div id="mobile-menu"
+        class="fixed top-[88px] left-0 w-full bg-darkBg/95 backdrop-blur-md border-b border-white/10 p-6 hidden flex-col gap-4 transform -translate-y-5 opacity-0 transition-all duration-300 lg:hidden z-40 shadow-2xl">
+        <nav class="flex flex-col gap-6 uppercase text-sm font-bold tracking-wider text-center">
+            <a href="index.html" class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">Home</a>
+            <a href="recovery.html"
+                class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">Home2</a>
+            <a href="about.html" class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">About</a>
+            <a href="program.html"
+                class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">Programs</a>
+            <a href="services.html"
+                class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">Services</a>
+            <a href="contact.html"
+                class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">Contact</a>
+            <a href="login.html"
+                class="hover:text-primaryRed transition-colors py-2 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-circle-user"></i> Account
+            </a>
+            <a href="pricing.html"
+                class="bg-primaryRed px-6 py-4 rounded-full font-black text-xs hover:brightness-110 shadow-lg shadow-primaryRed/20 transition-all uppercase mt-2">
+                Join Now
+            </a>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1544117518-30df578096a4?q=80&w=2000&auto=format&fit=crop"
+                class="w-full h-full object-cover grayscale opacity-20" alt="Recovery Lab">
+            <div class="absolute inset-0 bg-gradient-to-b from-darkBg/50 via-darkBg to-darkBg"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-5 text-center">
+            <div
+                class="inline-block mb-6  px-6 py-2 border border-primaryRed/30 rounded-full bg-primaryRed/5 backdrop-blur-sm">
+                <span class="text-primaryRed font-black uppercase tracking-[4px] text-[10px] italic ">Optimization
+                    Center</span>
+            </div>
+            <h1
+                class="font-montserrat text-6xl md:text-[120px] font-black uppercase italic leading-[0.8] tracking-tighter mb-8">
+                THE RECOVERY <br> <span class="text-primaryRed">VAULT.</span>
+            </h1>
+            <p class="text-textGray text-lg md:text-2xl max-w-3xl mx-auto mb-12 leading-relaxed font-medium">
+                The forge builds the strength. The Vault preserves it. Experience bio-engineering designed to reset your
+                biological limits.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <a href="#technologies"
+                    class="bg-white text-black px-12 py-5 font-black uppercase text-sm tracking-[3px] hover:bg-primaryRed hover:text-white transition-all rounded-full shadow-[0_0_30px_rgba(255,255,255,0.1)]">Discover
+                    Tech</a>
+                <a href="pricing.html"
+                    class="border-2 border-white/20 text-white px-12 py-5 font-black uppercase text-sm tracking-[3px] hover:border-primaryRed hover:text-primaryRed transition-all rounded-full glass-panel">Access
+                    Vault</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Divider -->
+    <div class="relative h-px bg-gradient-to-r from-transparent via-primaryRed/50 to-transparent w-full">
+        <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-primaryRed rounded-full shadow-[0_0_15px_#e63946]">
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section id="technologies" class="py-32 px-[5%] bg-vault-grid relative">
+        <div class="max-w-[1400px] mx-auto">
+            <div class="mb-24">
+                <h2 class="font-montserrat text-5xl md:text-7xl font-black uppercase italic tracking-tighter mb-4">
+                    ELITE <span class="text-primaryRed">PROTOCOLS</span>
+                </h2>
+                <div class="h-1 w-24 bg-primaryRed"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Cryotherapy -->
+                <div
+                    class="glass-panel p-10 rounded-[2.5rem] group hover:border-primaryRed/50 transition-all relative overflow-hidden">
+                    <div class="scan-line opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div
+                        class="w-16 h-16 bg-accentCyan/10 rounded-2xl flex items-center justify-center text-accentCyan mb-8">
+                        <i class="fa-solid fa-snowflake text-3xl"></i>
+                    </div>
+                    <h3
+                        class="font-montserrat text-3xl font-black italic uppercase mb-4 group-hover:text-accentCyan transition-colors">
+                        Cryo Frost</h3>
+                    <p class="text-textGray leading-relaxed mb-8">
+                        Liquid nitrogen cooling at -140°C. Instantly flushes toxins, reduces inflammation, and triggers
+                        massive endorphin release.
+                    </p>
+                    <div
+                        class="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-accentCyan bg-accentCyan/5 p-4 rounded-xl">
+                        <i class="fa-solid fa-bolt"></i> 3 MIN PROTOCOL // DEEP RESET
+                    </div>
+                </div>
+
+                <!-- Infrared Sauna -->
+                <div
+                    class="glass-panel p-10 rounded-[2.5rem] group hover:border-primaryRed/50 transition-all relative overflow-hidden">
+                    <div class="scan-line opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div
+                        class="w-16 h-16 bg-primaryRed/10 rounded-2xl flex items-center justify-center text-primaryRed mb-8">
+                        <i class="fa-solid fa-fire-flame-curved text-3xl"></i>
+                    </div>
+                    <h3
+                        class="font-montserrat text-3xl font-black italic uppercase mb-4 group-hover:text-primaryRed transition-colors">
+                        Infra-Repair</h3>
+                    <p class="text-textGray leading-relaxed mb-8">
+                        Near, mid, and far-infrared light waves penetrate deep into muscle fiber to accelerate cellular
+                        repair and detox at a DNA level.
+                    </p>
+                    <div
+                        class="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-primaryRed bg-primaryRed/5 p-4 rounded-xl">
+                        <i class="fa-solid fa-microchip"></i> 20 MIN SESSION // CELL REGARD
+                    </div>
+                </div>
+
+                <!-- Compression Therapy -->
+                <div
+                    class="glass-panel p-10 rounded-[2.5rem] group hover:border-primaryRed/50 transition-all relative overflow-hidden">
+                    <div class="scan-line opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center text-white mb-8">
+                        <i class="fa-solid fa-arrows-to-dot text-3xl"></i>
+                    </div>
+                    <h3
+                        class="font-montserrat text-3xl font-black italic uppercase mb-4 group-hover:text-white transition-colors">
+                        Normal-Flow</h3>
+                    <p class="text-textGray leading-relaxed mb-8">
+                        Dynamic air compression technology mimicking natural lymphatic drainage. Zero-gravity flush for
+                        the ultimate lower body reset.
+                    </p>
+                    <div
+                        class="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-gray-500 bg-white/5 p-4 rounded-xl">
+                        <i class="fa-solid fa-clock"></i> 45 MIN FLUSH // FLOW STATE
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Bio-Data Section -->
+    <section class="py-32 px-[8%] relative overflow-hidden">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-20">
+            <div class="flex-1 order-2 lg:order-1">
+                <div class="relative">
+                    <div class="absolute -top-10 -left-10 w-64 h-64 bg-primaryRed/10 rounded-full blur-[100px] -z-10">
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80"
+                        class="w-full h-[600px] object-cover rounded-[3rem] border border-white/10 grayscale brightness-50"
+                        alt="Bio-data Scanning">
+                    <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-transparent to-transparent"></div>
+
+                    <!-- Floating Data Points -->
+                    <div
+                        class="absolute top-1/4 right-5 glass-panel p-6 rounded-2xl animate-bounce [animation-duration:5s]">
+                        <div class="text-[10px] text-primaryRed font-bold mb-1 uppercase tracking-tighter">HRV SCORE
+                        </div>
+                        <div class="text-3xl font-black italic">94.8</div>
+                    </div>
+                    <div
+                        class="absolute bottom-1/4 left-5 glass-panel p-6 rounded-2xl animate-bounce [animation-duration:7s]">
+                        <div class="text-[10px] text-accentCyan font-bold mb-1 uppercase tracking-tighter">METABOLIC
+                            RATE</div>
+                        <div class="text-3xl font-black italic">OPTIMAL</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex-1 order-1 lg:order-2 space-y-8">
+                <span class="text-primaryRed font-black uppercase tracking-[0.5em] text-xs">Bio-Engineering</span>
+                <h2
+                    class="font-montserrat text-5xl md:text-7xl font-black uppercase italic tracking-tighter leading-tight">
+                    DRIVEN BY <span class="text-primaryRed">DATA.</span>
+                </h2>
+                <p class="text-textGray text-xl leading-relaxed">
+                    We don't guess. We measure. Every session in the Vault begins with a comprehensive bio-data scan to
+                    customize your recovery protocol based on your actual physiology.
+                </p>
+                <div class="space-y-6 pt-6">
+                    <div class="flex items-center gap-6">
+                        <div
+                            class="w-12 h-12 rounded-full border border-primaryRed/30 flex items-center justify-center text-primaryRed font-black italic">
+                            01</div>
+                        <p class="font-black uppercase italic tracking-widest text-sm text-white">Advanced HRV Tracking
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-6">
+                        <div
+                            class="w-12 h-12 rounded-full border border-primaryRed/30 flex items-center justify-center text-primaryRed font-black italic">
+                            02</div>
+                        <p class="font-black uppercase italic tracking-widest text-sm text-white">Full-Body Composition
+                            Analysis</p>
+                    </div>
+                    <div class="flex items-center gap-6">
+                        <div
+                            class="w-12 h-12 rounded-full border border-primaryRed/30 flex items-center justify-center text-primaryRed font-black italic">
+                            03</div>
+                        <p class="font-black uppercase italic tracking-widest text-sm text-white">Resting Metabolic
+                            Metrics</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Reset -->
+    <section class="py-32 bg-primaryRed relative overflow-hidden">
+        <div class="absolute inset-0 bg-vault-grid opacity-10"></div>
+        <div class="max-w-7xl mx-auto px-5 text-center relative z-10">
+            <h2 class="font-montserrat text-6xl md:text-9xl font-black uppercase italic text-black leading-none mb-10">
+                DONT JUST WORK. <br> <span class="text-white">RECOVER.</span>
+            </h2>
+            <p class="text-black/80 font-bold uppercase tracking-[0.3em] text-sm mb-12">Limited Vault Memberships
+                Available Per Month</p>
+            <a href="pricing.html"
+                class="inline-block bg-black text-white px-20 py-6 font-black uppercase text-sm tracking-[4px] hover:bg-white hover:text-black transition-all rounded-full shadow-2xl">Initialize
+                Access</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#0a0a0a] border-t border-white/5 pt-20 pb-10 px-[8%]">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div class="space-y-6">
+                    <a href="index.html" class="flex items-center gap-3">
+                        <img src="./assets/img/logo.png" alt="Gym Rat Logo" class="h-10 w-auto">
+                        <span class="font-montserrat text-2xl font-black italic text-white tracking-tighter">
+                            GYM<span class="text-primaryRed">RAT</span>
+                        </span>
+                    </a>
+                    <div class="flex gap-4">
+                        <a href="#"
+                            class="w-10 h-10 bg-[#1a1a1a] flex items-center justify-center text-white hover:bg-primaryRed transition-all">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 bg-[#1a1a1a] flex items-center justify-center text-white hover:bg-primaryRed transition-all">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 bg-[#1a1a1a] flex items-center justify-center text-white hover:bg-primaryRed transition-all">
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-montserrat text-lg font-black uppercase italic text-white mb-6">Quick Links</h4>
+                    <ul class="space-y-4 text-sm text-textGray">
+                        <li><a href="index.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Home</a>
+                        </li>
+                        <li><a href="recovery.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Home2</a>
+                        </li>
+                        <li><a href="about.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">About
+                                Us</a></li>
+                        <li><a href="program.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Programs</a>
+                        </li>
+                        <li><a href="services.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Services</a>
+                        </li>
+                        <li><a href="pricing.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Membership</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-montserrat text-lg font-black uppercase italic text-white mb-6">Support</h4>
+                    <ul class="space-y-4 text-sm text-textGray">
+                        <li><a href="policy.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Privacy
+                                Policy</a></li>
+                        <li><a href="terms.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Terms
+                                of Service</a></li>
+                        <li><a href="contact.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-montserrat text-lg font-black uppercase italic text-white mb-6">The Vault</h4>
+                    <ul class="space-y-4 text-sm text-textGray">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot text-primaryRed mt-1"></i>
+                            <span>Floor 2, The Iron Forge,<br>Muscle Bay, FL 33101</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-phone text-primaryRed"></i>
+                            <span>+1 (555) 800-VAULT</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div
+                class="pt-8 border-t border-white/5 text-center items-center gap-4 text-[10px] font-bold uppercase tracking-[2px] text-white/30">
+                <p>© 2024 GYM RAT ELITE FITNESS. THE RECOVERY VAULT. ALL RIGHTS RESERVED.</p>
+                
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="assets/js/auth.js"></script>
+    <script src="assets/js/navbar.js"></script>
+</body>
+
+</html>

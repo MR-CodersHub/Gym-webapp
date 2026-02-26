@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | GYM RAT ELITE</title>
+    <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,900;1,900&family=Inter:wght@400;700&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primaryRed: '#e63946', darkBg: '#080808', cardBg: '#111111' },
+                    fontFamily: { montserrat: ['Montserrat', 'sans-serif'], inter: ['Inter', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-darkBg text-white font-inter selection:bg-primaryRed">
+
+    <!-- Header -->
+    <header
+        class="border-b border-white/5 bg-black/50 backdrop-blur-md sticky top-0 z-50 px-[8%] py-5 flex justify-between items-center">
+        <div class="flex items-center gap-2.5 font-montserrat font-black text-3xl italic tracking-tighter">
+            <img src="./assets/img/logo.png" alt="logo" class="h-12 w-12">
+            <span>GYM<span class="text-primaryRed">RAT</span></span>
+        </div>
+
+        <!-- Hamburger Menu Button -->
+        <button id="mobile-menu-btn" class="lg:hidden text-2xl text-white ml-4 focus:outline-none"
+            aria-expanded="false">
+            <i id="icon-open" class="fa-solid fa-bars"></i>
+            <i id="icon-close" class="fa-solid fa-xmark hidden"></i>
+        </button>
+
+        <div class="hidden lg:flex items-center gap-6">
+            <a href="index.html"
+                class="text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition-all">Public
+                View</a>
+            <div id="auth-container" class="relative ml-4 cursor-pointer group">
+                <div id="auth-icon" class="text-2xl hover:text-primaryRed transition-colors">
+                    <i class="fa-solid fa-circle-user"></i>
+                </div>
+                <ul id="auth-dropdown"
+                    class="absolute right-0 mt-4 w-48 bg-cardBg border border-white/10 py-3 hidden flex-col shadow-2xl origin-top-right z-[100] rounded-lg">
+                    <!-- auth.js handles this -->
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu"
+        class="fixed top-[88px] left-0 w-full bg-darkBg/95 backdrop-blur-md border-b border-white/10 p-6 hidden flex-col gap-4 transform -translate-y-5 opacity-0 transition-all duration-300 lg:hidden z-40 shadow-2xl">
+        <nav class="flex flex-col gap-6 uppercase text-sm font-bold tracking-wider text-center">
+            <a href="index.html" class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">Public
+                View</a>
+            <a href="profile.html"
+                class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">Profile</a>
+        </nav>
+    </div>
+
+    <main class="py-20 px-[8%] max-w-[1400px] mx-auto">
+
+        <!-- Welcome Section -->
+        <div class="mb-16">
+            <h1 class="font-montserrat text-5xl font-black uppercase italic tracking-tighter mb-4">
+                SECURE <span class="text-primaryRed">MISSION CONTROL</span>
+            </h1>
+            <p class="text-[10px] font-black uppercase tracking-[0.5em] text-gray-500 italic">Operational Oversight &
+                Command</p>
+        </div>
+
+        <!-- Metrics Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <!-- Revenue Card -->
+            <div
+                class="bg-cardBg border border-white/5 p-8 rounded-2xl hover:border-primaryRed/50 transition-all group">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="p-3 bg-primaryRed/10 rounded-xl text-primaryRed">
+                        <i class="fa-solid fa-money-bill-trend-up text-xl"></i>
+                    </div>
+                    <span class="text-[8px] font-black text-gray-600 uppercase tracking-widest">Revenue (MTD)</span>
+                </div>
+                <h3 id="stat-revenue" class="text-4xl font-black italic font-montserrat text-white">$0.00</h3>
+                <div class="mt-4 pt-4 border-t border-white/5 flex items-center gap-2">
+                    <span class="text-[9px] font-black text-green-500 uppercase tracking-widest">System Active</span>
+                </div>
+            </div>
+
+            <!-- Members Card -->
+            <div
+                class="bg-cardBg border border-white/5 p-8 rounded-2xl hover:border-primaryRed/50 transition-all group">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="p-3 bg-primaryRed/10 rounded-xl text-primaryRed">
+                        <i class="fa-solid fa-users text-xl"></i>
+                    </div>
+                    <span class="text-[8px] font-black text-gray-600 uppercase tracking-widest">Active Members</span>
+                </div>
+                <h3 id="stat-members" class="text-4xl font-black italic font-montserrat text-white">0</h3>
+                <div class="mt-4 pt-4 border-t border-white/5">
+                    <span class="text-[9px] font-black text-gray-600 uppercase tracking-widest italic">Live Enlistment
+                        Data</span>
+                </div>
+            </div>
+
+            <!-- Trainers Card -->
+            <div
+                class="bg-cardBg border border-white/5 p-8 rounded-2xl hover:border-primaryRed/50 transition-all group">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="p-3 bg-primaryRed/10 rounded-xl text-primaryRed">
+                        <i class="fa-solid fa-user-tie text-xl"></i>
+                    </div>
+                    <span class="text-[8px] font-black text-gray-600 uppercase tracking-widest">Elite Trainers</span>
+                </div>
+                <h3 id="stat-trainers" class="text-4xl font-black italic font-montserrat text-white">0</h3>
+                <div class="mt-4 pt-4 border-t border-white/5">
+                    <span class="text-[9px] font-black text-gray-600 uppercase tracking-widest italic">Staff
+                        Inventory</span>
+                </div>
+            </div>
+
+            <!-- Programs Card -->
+            <div
+                class="bg-cardBg border border-white/5 p-8 rounded-2xl hover:border-primaryRed/50 transition-all group">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="p-3 bg-primaryRed/10 rounded-xl text-primaryRed">
+                        <i class="fa-solid fa-dumbbell text-xl"></i>
+                    </div>
+                    <span class="text-[8px] font-black text-gray-600 uppercase tracking-widest">Active Programs</span>
+                </div>
+                <h3 id="stat-programs" class="text-4xl font-black italic font-montserrat text-white">0</h3>
+                <div class="mt-4 pt-4 border-t border-white/5">
+                    <span class="text-[9px] font-black text-gray-600 uppercase tracking-widest italic">Training
+                        Protocols</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Contact Inquiries Section -->
+        <div class="mt-12 bg-cardBg border border-white/5 rounded-2xl p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h4 class="text-[10px] font-black text-gray-500 uppercase tracking-[0.3em]">Contact Inquiries</h4>
+                <button onclick="loadContactMessages()"
+                    class="text-[9px] font-black text-primaryRed uppercase tracking-widest hover:text-white transition-all">
+                    <i class="fa-solid fa-rotate"></i> Refresh
+                </button>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-white/5">
+                            <th class="py-4 text-[9px] font-black text-gray-600 uppercase tracking-widest">Date</th>
+                            <th class="py-4 text-[9px] font-black text-gray-600 uppercase tracking-widest">Name</th>
+                            <th class="py-4 text-[9px] font-black text-gray-600 uppercase tracking-widest">Email</th>
+                            <th class="py-4 text-[9px] font-black text-gray-600 uppercase tracking-widest">Message</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contact-messages-body">
+                        <!-- Messages will be injected here -->
+                        <tr>
+                            <td colspan="4" class="py-8 text-center text-xs text-gray-600 italic">Initializing
+                                surveillance...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- System Notifications (Placeholder) -->
+
+        <div class="mt-12 bg-cardBg border border-white/5 rounded-2xl p-8">
+            <h4 class="text-[10px] font-black text-gray-500 uppercase tracking-[0.3em] mb-6">Recent Logins</h4>
+            <div class="space-y-4">
+                <div class="flex items-center justify-between p-4 bg-black/30 border border-white/[0.02] rounded-lg">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-8 h-8 bg-primaryRed/20 flex items-center justify-center rounded-full text-[10px] font-black text-primaryRed italic">
+                            A</div>
+                        <div>
+                            <p class="text-xs font-bold uppercase italic">Admin</p>
+                            <p class="text-[9px] text-gray-600 font-bold uppercase tracking-widest">Session Authorized
+                            </p>
+                        </div>
+                    </div>
+                    <p class="text-[9px] font-black text-gray-700 uppercase">Just Now</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script type="module" src="assets/js/admin-dashboard.js"></script>
+    <script type="module" src="assets/js/auth.js"></script>
+    <script src="assets/js/navbar.js"></script>
+</body>
+
+</html>

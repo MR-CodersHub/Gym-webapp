@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authorize | GYM RAT ELITE</title>
+    <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,900;1,900&family=Inter:wght@400;700&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primaryRed: '#e63946', darkBg: '#080808', cardBg: '#111111' },
+                    fontFamily: { montserrat: ['Montserrat', 'sans-serif'], inter: ['Inter', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-darkBg text-white min-h-screen md:h-screen md:overflow-hidden font-inter selection:bg-primaryRed">
+
+    <div class="flex h-full flex-col md:flex-row">
+
+        <div class="w-full md:w-1/2 relative flex items-center justify-center overflow-hidden border-r border-white/5">
+            <img src="https://images.unsplash.com/photo-1593079831268-3381b0db4a77?q=80&w=1600"
+                class="absolute inset-0 w-full h-full object-cover grayscale opacity-50 transition-transform duration-[10s] hover:scale-110"
+                alt="Iron Forge">
+
+            <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-transparent to-transparent"></div>
+            <div class="absolute inset-0 bg-primaryRed/10 mix-blend-overlay"></div>
+
+            <div class="relative z-10 text-center px-10">
+                <div class="mb-6 flex justify-center">
+                    <div class="w-16 h-1 bg-primaryRed"></div>
+                </div>
+                <h2
+                    class="font-montserrat text-4xl sm:text-6xl lg:text-8xl font-black uppercase italic leading-none tracking-tighter">
+                    BACK TO <br>THE <span class="text-primaryRed">FORGE</span>
+                </h2>
+                <p class="mt-6 text-[10px] font-black uppercase tracking-[0.5em] text-white/50 italic">Identity Required
+                    for Entrance</p>
+            </div>
+        </div>
+
+        <div class="w-full md:w-1/2 bg-darkBg flex items-center justify-center p-8 lg:p-24 relative">
+            <div
+                class="absolute top-10 right-10 opacity-5 font-montserrat font-black text-6xl italic select-none hidden md:block">
+                LOGIN
+            </div>
+
+            <div class="w-full max-w-md space-y-10 relative z-10">
+
+                <div class="text-center">
+                    <a href="index.html"
+                        class="inline-flex items-center justify-center gap-2 font-montserrat font-black text-2xl italic tracking-tighter mb-8 hover:text-primaryRed transition-colors">
+                        <img src="./assets/img/logo.png" alt="logo" class="h-8 w-8">
+                        <span>GYM<span class="text-primaryRed">RAT</span></span>
+                    </a>
+                    <h1 class="font-montserrat text-4xl font-black uppercase italic tracking-tighter">
+                        AUTHORIZE <span class="text-primaryRed">SESSION</span>
+                    </h1>
+                    <div class="h-1 w-12 bg-primaryRed mt-2 mx-auto md:mx-0"></div>
+                </div>
+
+                <form id="login-form" class="space-y-6">
+                    <div id="login-error-msg"
+                        class="hidden text-primaryRed text-[10px] font-black uppercase tracking-widest bg-primaryRed/10 p-4 border-l-2 border-primaryRed">
+                    </div>
+                    <div class="space-y-5">
+                        <div class="group">
+                            <label
+                                class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block group-focus-within:text-primaryRed transition-colors">Member
+                                Email</label>
+                            <input type="email" id="login-email" placeholder="GR-XXXX@GYMRAT.COM" required
+                                class="w-full bg-cardBg border border-white/5 p-5 text-sm font-bold outline-none focus:border-primaryRed focus:bg-black transition-all tracking-widest placeholder:text-white/10">
+                        </div>
+
+                        <div class="group">
+                            <div class="flex justify-between items-center mb-2">
+                                <label
+                                    class="text-[10px] font-black uppercase tracking-widest text-gray-500 group-focus-within:text-primaryRed transition-colors">Pass-Key</label>
+                                <a href="#"
+                                    class="text-[9px] font-black uppercase tracking-widest text-primaryRed hover:text-white transition-all">Reset
+                                    Key</a>
+                            </div>
+                            <div class="relative">
+                                <input type="password" id="login-password" placeholder="••••••••••••" required
+                                    class="w-full bg-cardBg border border-white/5 p-5 text-sm font-bold outline-none focus:border-primaryRed focus:bg-black transition-all tracking-widest pr-12">
+                                <i id="toggle-password"
+                                    class="fa-solid fa-eye absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer hover:text-primaryRed transition-colors"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox"
+                                class="w-4 h-4 bg-cardBg border-white/10 rounded-none accent-primaryRed">
+                            <span
+                                class="text-[10px] font-black uppercase tracking-widest text-gray-500 group-hover:text-white transition-all">Secure
+                                Login</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" id="login-submit-btn"
+                        class="w-full bg-primaryRed text-white py-6 font-black uppercase text-xs tracking-[6px] hover:bg-white hover:text-black transition-all shadow-2xl shadow-primaryRed/20 active:scale-[0.98] rounded-full">
+                        ENTER
+                    </button>
+                </form>
+                <script type="module" src="assets/js/auth-logic.js"></script>
+
+                <div class="text-center">
+                    <p class="text-[10px] font-black text-gray-600 uppercase tracking-widest">
+                        Don't have access?
+                        <a href="signup.html"
+                            class="text-white hover:text-primaryRed transition-all border-b border-primaryRed/50 pb-0.5 ml-1">Enlist
+                            Now</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

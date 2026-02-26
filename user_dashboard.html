@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | GYM RAT ELITE</title>
+    <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,900;1,900&family=Inter:wght@400;700&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primaryRed: '#e63946', darkBg: '#080808', cardBg: '#111111' },
+                    fontFamily: { montserrat: ['Montserrat', 'sans-serif'], inter: ['Inter', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-darkBg text-white font-inter selection:bg-primaryRed">
+
+    <!-- Navigation -->
+    <header
+        class="border-b border-white/5 bg-black/50 backdrop-blur-md sticky top-0 z-50 px-[8%] py-5 flex justify-between items-center">
+        <div class="flex items-center gap-2.5 font-montserrat font-black text-3xl italic tracking-tighter">
+            <img src="./assets/img/logo.png" alt="logo" class="h-12 w-12">
+            <span>GYM<span class="text-primaryRed">RAT</span></span>
+        </div>
+
+        <!-- Hamburger Menu Button -->
+        <button id="mobile-menu-btn" class="lg:hidden text-2xl text-white ml-4 focus:outline-none"
+            aria-expanded="false">
+            <i id="icon-open" class="fa-solid fa-bars"></i>
+            <i id="icon-close" class="fa-solid fa-xmark hidden"></i>
+        </button>
+
+        <div class="hidden lg:flex items-center gap-6 text-[10px] font-black uppercase tracking-widest">
+            <a href="index.html" class="text-gray-500 hover:text-white transition-all">Home</a>
+            <a href="booking.html"
+                class="bg-primaryRed px-4 py-2 rounded text-white hover:brightness-110 transition-all">Book Session</a>
+            <div id="auth-container" class="relative ml-4 cursor-pointer group">
+                <div id="auth-icon" class="text-2xl hover:text-primaryRed transition-colors">
+                    <i class="fa-solid fa-circle-user"></i>
+                </div>
+                <ul id="auth-dropdown"
+                    class="absolute right-0 mt-4 w-48 bg-cardBg border border-white/10 py-3 hidden flex-col shadow-2xl origin-top-right z-[100] rounded-lg">
+                    <!-- auth.js injection -->
+                </ul>
+            </div>
+        </div>
+    </header> 
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu"
+        class="fixed top-[88px] left-0 w-full bg-darkBg/95 backdrop-blur-md border-b border-white/10 p-6 hidden flex-col gap-4 transform -translate-y-5 opacity-0 transition-all duration-300 lg:hidden z-40 shadow-2xl">
+        <nav class="flex flex-col gap-6 uppercase text-sm font-bold tracking-wider text-center">
+            <a href="index.html" class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">Home</a>
+            <a href="booking.html" class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">Book
+                Session</a>
+            <a href="profile.html"
+                class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">Profile</a>
+        </nav>
+    </div>
+
+    <main class="py-20 px-[8%] max-w-[1400px] mx-auto min-h-screen">
+
+        <!-- Dashboard Header -->
+        <div class="mb-16 flex flex-col md:flex-row justify-between items-end gap-6">
+            <div>
+                <h1 class="font-montserrat text-5xl font-black uppercase italic tracking-tighter mb-4">
+                    ELITE <span class="text-primaryRed">PORTAL</span>
+                </h1>
+                <p id="user-welcome" class="text-[10px] font-black uppercase tracking-[0.5em] text-gray-500 italic">
+                    Welcome back back, Member</p>
+            </div>
+            <div class="flex gap-4">
+                <div class="text-right">
+                    <p class="text-[8px] font-black text-gray-600 uppercase tracking-widest">Session Status</p>
+                    <p id="membership-badge" class="font-black italic uppercase text-primaryRed">Loading...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+            <!-- Column 1: Profile & Plan -->
+            <div class="lg:col-span-1 space-y-10">
+
+                <!-- Membership Card -->
+                <div class="bg-cardBg border border-white/5 p-8 rounded-3xl relative overflow-hidden group">
+                    <div
+                        class="absolute top-0 right-0 p-4 opacity-5 pointer-events-none transition-transform group-hover:scale-110">
+                        <i class="fa-solid fa-id-card text-7xl italic"></i>
+                    </div>
+                    <h3 class="text-[10px] font-black text-primaryRed uppercase tracking-[0.3em] mb-6">Plan Assets</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-[9px] font-black text-gray-600 uppercase tracking-widest">Active Plan</p>
+                            <h4 id="display-plan"
+                                class="text-2xl font-black uppercase italic text-white tracking-tighter">Gold Standard
+                            </h4>
+                        </div>
+                        <div>
+                            <p class="text-[9px] font-black text-gray-600 uppercase tracking-widest">Expiry Date</p>
+                            <h4 id="display-expiry"
+                                class="text-lg font-black uppercase italic text-white/50 tracking-tighter">Loading...
+                            </h4>
+                        </div>
+                    </div>
+                    <a href="pricing.html"><button
+                            class="mt-10 w-full py-4 border border-white/5 text-[9px] font-black uppercase tracking-[4px] hover:bg-primaryRed hover:border-primaryRed transition-all">Manage
+                            Plan</button></a>
+                </div>
+
+                <!-- Trainer Card -->
+                <div class="bg-cardBg border border-white/5 p-8 rounded-3xl group">
+                    <h3 class="text-[10px] font-black text-primaryRed uppercase tracking-[0.3em] mb-6">Assigned Trainer
+                    </h3>
+                    <div class="flex items-center gap-6">
+                        <div
+                            class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center text-primaryRed border border-white/10 italic font-black text-xl">
+                            <i class="fa-solid fa-user-shield"></i>
+                        </div>
+                        <div>
+                            <h4 id="trainer-name"
+                                class="text-xl font-black uppercase italic text-white tracking-tighter">Alex Rivers</h4>
+                            <p id="trainer-specialty"
+                                class="text-[9px] font-black text-gray-600 uppercase tracking-widest italic">Strength
+                                Operations</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Column 2 & 3: Enrolled & History -->
+            <div class="lg:col-span-2 space-y-10">
+
+                <!-- Enrolled Programs -->
+                <div class="bg-cardBg border border-white/5 rounded-3xl p-10">
+                    <div class="flex justify-between items-center mb-10">
+                        <h3 class="text-[10px] font-black text-primaryRed uppercase tracking-[0.3em]">Active Protocols
+                        </h3>
+                        <a href="booking.html"
+                            class="text-[9px] font-black text-gray-600 hover:text-primaryRed uppercase tracking-widest transition-all">Book
+                            More Session +</a>
+                    </div>
+
+                    <div id="enrolled-list" class="space-y-4">
+                        <!-- Loading State -->
+                        <div
+                            class="flex items-center justify-center py-10 opacity-20 italic font-black uppercase tracking-widest">
+                            Fetching protocols...</div>
+                    </div>
+                </div>
+
+                <!-- Payment History -->
+                <div class="bg-cardBg border border-white/5 rounded-3xl p-10">
+                    <h3 class="text-[10px] font-black text-primaryRed uppercase tracking-[0.3em] mb-10">Financial
+                        History</h3>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead
+                                class="border-b border-white/5 text-[9px] font-black text-gray-600 uppercase tracking-widest">
+                                <tr>
+                                    <th class="pb-4">Transaction</th>
+                                    <th class="pb-4">Date</th>
+                                    <th class="pb-4">Amount</th>
+                                    <th class="pb-4 text-right">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="payment-rows" class="text-[10px] font-black uppercase italic">
+                                <!-- Loading placeholder -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <script type="module" src="assets/js/user-dashboard.js"></script>
+    <script type="module" src="assets/js/auth.js"></script>
+    <script src="assets/js/navbar.js"></script>
+</body>
+
+</html>

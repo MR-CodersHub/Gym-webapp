@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+    <title>Gym Rat | Elite Fitness Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,900&family=Inter:wght@400;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Tailwind Custom Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primaryRed: '#e63946',
+                        darkBg: '#0f0f0f',
+                        cardBg: '#161616',
+                        textGray: '#a0a0a0',
+                    },
+                    fontFamily: {
+                        montserrat: ['Montserrat', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        .text-outline {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+            color: transparent;
+        }
+
+        .bg-grid {
+            background-image: radial-gradient(circle, #222 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+    </style>
+</head>
+
+<body class="bg-darkBg text-white font-inter selection:bg-primaryRed overflow-x-hidden">
+
+    <!-- Navigation Header -->
+    <header
+        class="fixed top-0 w-full z-50 bg-darkBg/95 backdrop-blur-md border-b border-white/10 px-[4%] xl:px-[8%] py-5 flex justify-between items-center transition-all">
+        <a href="index.html"
+            class="flex items-center gap-2.5 font-montserrat font-black text-3xl italic tracking-tighter">
+            <img src="./assets/img/logo.png" alt="logo" class="h-12 w-12">
+            <span>GYM<span class="text-primaryRed">RAT</span></span>
+        </a>
+        <nav class="hidden lg:block">
+            <ul
+                class="flex items-center lg:gap-4 xl:gap-8 uppercase lg:text-[11px] xl:text-sm font-bold tracking-wider">
+                <li><a href="index.html" class="hover:text-primaryRed transition-colors">Home</a></li>
+                <li><a href="recovery.html" class="hover:text-primaryRed transition-colors">Home2</a></li>
+                <li><a href="about.html" class="hover:text-primaryRed transition-colors">About</a></li>
+                <li><a href="program.html" class="hover:text-primaryRed transition-colors">Programs</a></li>
+                <li><a href="services.html" class="hover:text-primaryRed transition-colors">Services</a>
+                </li>
+                <li><a href="contact.html" class="hover:text-primaryRed transition-colors">Contact</a></li>
+                <li><a href="pricing.html"
+                        class="bg-primaryRed px-6 py-3 rounded-full font-black text-xs hover:brightness-110 shadow-lg shadow-primaryRed/20 transition-all uppercase">Join
+                        Now</a></li>
+            </ul>
+        </nav>
+
+        <!-- Hamburger Menu Button -->
+        <button id="mobile-menu-btn" class="lg:hidden text-2xl text-white ml-4 focus:outline-none"
+            aria-expanded="false">
+            <i id="icon-open" class="fa-solid fa-bars"></i>
+            <i id="icon-close" class="fa-solid fa-xmark hidden"></i>
+        </button>
+
+        <!-- Auth Icon & Dropdown -->
+        <div id="auth-container" class="relative ml-4 cursor-pointer group hidden lg:block">
+            <div id="auth-icon" class="text-2xl hover:text-primaryRed transition-colors">
+                <i class="fa-solid fa-circle-user"></i>
+            </div>
+            <ul id="auth-dropdown"
+                class="absolute right-0 mt-4 w-48 bg-cardBg border border-white/10 py-3 hidden flex-col shadow-2xl origin-top-right z-[100] rounded-lg">
+                <!-- Content injected by auth.js -->
+            </ul>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Container -->
+    <div id="mobile-menu"
+        class="fixed top-[88px] left-0 w-full bg-darkBg/95 backdrop-blur-md border-b border-white/10 p-6 hidden flex-col gap-4 transform -translate-y-5 opacity-0 transition-all duration-300 lg:hidden z-40 shadow-2xl">
+        <nav class="flex flex-col gap-6 uppercase text-sm font-bold tracking-wider text-center">
+            <a href="index.html" class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">Home</a>
+            <a href="recovery.html"
+                class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">Home2</a>
+            <a href="about.html" class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">About</a>
+            <a href="program.html"
+                class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">Programs</a>
+            <a href="services.html"
+                class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">Services</a>
+            <a href="#contact" class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">Contact</a>
+
+            <!-- Auth for Mobile (Simplified) -->
+            <a href="login.html"
+                class="hover:text-primaryRed transition-colors py-2 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-circle-user"></i> Account
+            </a>
+
+            <a href="pricing.html"
+                class="bg-primaryRed px-6 py-4 rounded-full font-black text-xs hover:brightness-110 shadow-lg shadow-primaryRed/20 transition-all uppercase mt-2">
+                Join Now
+            </a>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center text-center px-5 bg-cover bg-center"
+        style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=2070&auto=format&fit=crop');">
+        <div class="max-w-4xl">
+            <h1 class="font-montserrat font-black italic leading-none mb-5 text-5xl md:text-7xl lg:text-9xl">
+                PUSH YOUR <br><span class="text-primaryRed">LIMITS</span>
+            </h1>
+            <p class="text-textGray text-lg md:text-xl max-w-xl mx-auto mb-10">
+                Premium equipment, professional trainers, and a community built for the dedicated.
+            </p>
+            <div class="flex flex-col md:flex-row gap-5 justify-center">
+                <a href="booking.html"
+                    class="bg-white text-black px-9 py-4 uppercase font-black text-sm hover:bg-primaryRed hover:text-white transition-all rounded-full">Start
+                    Free Trial</a>
+                <a href="pricing.html"
+                    class="border-2 border-white px-9 py-4 uppercase font-black text-sm hover:bg-white hover:text-black transition-all rounded-full">View
+                    Plans</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-[8%] bg-darkBg">
+        <div class="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+            <div class="relative flex-1 group">
+                <img src="https://images.unsplash.com/photo-1593079831268-3381b0db4a77?q=80&w=2069&auto=format&fit=crop"
+                    alt="Gym Interior"
+                    class="rounded-2xl border-b-8 border-primaryRed grayscale-[30%] group-hover:grayscale-0 transition-all duration-500">
+                <div
+                    class="absolute -bottom-5 right-1/2 translate-x-1/2 lg:translate-x-0 lg:-right-5 bg-primaryRed p-5 md:p-8 rounded-lg text-center shadow-xl">
+                    <span class="block text-3xl font-black leading-none">10+</span>
+                    <span class="text-[10px] uppercase font-bold">Years of<br>Excellence</span>
+                </div>
+            </div>
+            <div class="flex-1 text-center lg:text-left">
+                <h2 class="font-montserrat text-4xl md:text-5xl font-black italic mb-5">WE ARE <span
+                        class="text-primaryRed">GYM RAT</span></h2>
+                <p class="text-xl font-medium mb-5">More than just a gym. We are a community of dedicated individuals
+                    chasing the best versions of ourselves.</p>
+                <p class="text-textGray mb-8 leading-relaxed">
+                    Founded in 2016, Gym Rat was built for those who find peace in the clank of iron and the heat of the
+                    grind. We provide an elite environment where professional athletes and beginners train side-by-side.
+                </p>
+                <ul class="mb-10 space-y-3 inline-block lg:block text-left">
+                    <li class="flex items-center gap-4 font-medium"><i class="fa-solid fa-check text-primaryRed"></i>
+                        Olympic Grade Lifting Platforms</li>
+                    <li class="flex items-center gap-4 font-medium"><i class="fa-solid fa-check text-primaryRed"></i>
+                        Certified Strength Coaches</li>
+                    <li class="flex items-center gap-4 font-medium"><i class="fa-solid fa-check text-primaryRed"></i>
+                        Performance Tracking Technology</li>
+                </ul>
+                <div class="block">
+                    <a href="./about.html"
+                        class="bg-white text-black px-9 py-4 uppercase font-black text-sm hover:bg-primaryRed hover:text-white transition-all rounded-full">Learn
+                        Our Story</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-[8%] bg-[#0f0f0f]">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-primaryRed font-bold uppercase tracking-[0.3em] text-sm mb-4">Why Choose Us</h3>
+                        <h2
+                            class="font-montserrat text-4xl md:text-5xl font-black uppercase italic leading-[0.95] mb-6">
+                            More Than Just A <span class="text-primaryRed">Gym</span>
+                        </h2>
+                        <p class="text-textGray text-lg leading-relaxed max-w-xl">
+                            At Gym Rat, we believe in forging not just stronger bodies, but stronger minds. Our
+                            state-of-the-art facility combines cutting-edge equipment with expert guidance to help you
+                            achieve results you never thought possible.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div
+                            class="bg-cardBg p-6 border border-white/5 rounded-xl hover:border-primaryRed/30 transition-all">
+                            <div
+                                class="w-10 h-10 bg-primaryRed/10 rounded-lg flex items-center justify-center text-primaryRed mb-4">
+                                <i class="fa-solid fa-trophy"></i>
+                            </div>
+                            <h4 class="text-2xl font-black font-montserrat italic">10+</h4>
+                            <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Years Experience
+                            </p>
+                        </div>
+                        <div
+                            class="bg-cardBg p-6 border border-white/5 rounded-xl hover:border-primaryRed/30 transition-all">
+                            <div
+                                class="w-10 h-10 bg-primaryRed/10 rounded-lg flex items-center justify-center text-primaryRed mb-4">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <h4 class="text-2xl font-black font-montserrat italic">5000+</h4>
+                            <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Active Members</p>
+                        </div>
+                        <div
+                            class="bg-cardBg p-6 border border-white/5 rounded-xl hover:border-primaryRed/30 transition-all">
+                            <div
+                                class="w-10 h-10 bg-primaryRed/10 rounded-lg flex items-center justify-center text-primaryRed mb-4">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <h4 class="text-2xl font-black font-montserrat italic">24/7</h4>
+                            <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Open Hours</p>
+                        </div>
+                        <div
+                            class="bg-cardBg p-6 border border-white/5 rounded-xl hover:border-primaryRed/30 transition-all">
+                            <div
+                                class="w-10 h-10 bg-primaryRed/10 rounded-lg flex items-center justify-center text-primaryRed mb-4">
+                                <i class="fa-solid fa-bullseye"></i>
+                            </div>
+                            <h4 class="text-2xl font-black font-montserrat italic">50+</h4>
+                            <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Expert Trainers</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-center items-center relative py-20">
+                    <div
+                        class="w-[300px] h-[300px] md:w-[450px] md:h-[450px] border border-white/5 rounded-full flex items-center justify-center relative shadow-[0_0_100px_rgba(230,57,70,0.05)]">
+                        <div
+                            class="absolute inset-0 border-2 border-transparent border-t-primaryRed rounded-full animate-spin [animation-duration:8s]">
+                        </div>
+
+                        <div
+                            class="w-[85%] h-[85%] bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] rounded-full flex flex-col items-center justify-center text-center p-12 border border-white/10 shadow-inner">
+                            <h2 class="font-montserrat text-6xl md:text-8xl font-black italic text-primaryRed">10+</h2>
+                            <p class="font-montserrat text-xl md:text-2xl font-black uppercase italic tracking-tighter">
+                                Years Strong</p>
+                        </div>
+                        <div
+                            class="absolute top-0 left-1/2 -translate-x-1/2 w-4 h-4 bg-primaryRed rounded-full shadow-[0_0_15px_#e63946]">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+    </section>
+
+    <!-- Services & Support Section -->
+    <section id="services-support" class="py-24 px-[8%] bg-darkBg">
+        <div class="max-w-7xl mx-auto">
+
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                <div class="max-w-2xl">
+                    <h2 class="font-montserrat text-4xl md:text-5xl font-black italic mb-4 uppercase">
+                        Elite <span class="text-primaryRed">Support</span>
+                    </h2>
+                    <p class="text-textGray text-lg">
+                        Beyond the equipment. We provide the expert guidance and professional facilities required to
+                        sustain
+                        elite performance.
+                    </p>
+                </div>
+                <a href="./faq.html"
+                    class="text-primaryRed font-bold uppercase tracking-wider border-b-2 border-primaryRed pb-1 hover:text-white hover:border-white transition-all">
+                    Have a Question?
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div
+                    class="bg-cardBg border border-white/5 p-10 rounded-xl hover:border-primaryRed/50 transition-all duration-300 group flex flex-col h-full">
+                    <div
+                        class="w-14 h-14 bg-primaryRed/10 rounded-lg flex items-center justify-center mb-6 text-primaryRed">
+                        <i class="fa-solid fa-user-tie text-3xl"></i>
+                    </div>
+                    <h3
+                        class="font-montserrat text-2xl font-black italic mb-4 uppercase group-hover:text-primaryRed transition-colors">
+                        Personal Training</h3>
+                    <p class="text-textGray leading-relaxed mb-8">
+                        One-on-one sessions with our elite coaches. Get a customized program tailored strictly to your
+                        physiological needs.
+                    </p>
+                    <div
+                        class="flex items-center gap-4 text-xs font-bold border-t border-white/10 pt-6 uppercase tracking-widest mt-auto">
+                        <span class="text-primaryRed">Custom Plans</span>
+                        <span class="text-white/20">|</span>
+                        <span class="text-white">Expert Led</span>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-cardBg border border-white/5 p-10 rounded-xl hover:border-primaryRed/50 transition-all duration-300 group flex flex-col h-full">
+                    <div
+                        class="w-14 h-14 bg-primaryRed/10 rounded-lg flex items-center justify-center mb-6 text-primaryRed">
+                        <i class="fa-solid fa-apple-whole text-3xl"></i>
+                    </div>
+                    <h3
+                        class="font-montserrat text-2xl font-black italic mb-4 uppercase group-hover:text-primaryRed transition-colors">
+                        Nutrition Guidance</h3>
+                    <p class="text-textGray leading-relaxed mb-8">
+                        Abs are made in the kitchen. Our certified nutritionists build meal plans that fuel your
+                        training and recovery.
+                    </p>
+                    <div
+                        class="flex items-center gap-4 text-xs font-bold border-t border-white/10 pt-6 uppercase tracking-widest mt-auto">
+                        <span class="text-primaryRed">Macro Tracking</span>
+                        <span class="text-white/20">|</span>
+                        <span class="text-white">Meal Prep</span>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-cardBg border border-white/5 p-10 rounded-xl hover:border-primaryRed/50 transition-all duration-300 group flex flex-col h-full">
+                    <div
+                        class="w-14 h-14 bg-primaryRed/10 rounded-lg flex items-center justify-center mb-6 text-primaryRed">
+                        <i class="fa-solid fa-chart-line text-3xl"></i>
+                    </div>
+                    <h3
+                        class="font-montserrat text-2xl font-black italic mb-4 uppercase group-hover:text-primaryRed transition-colors">
+                        Composition Analysis</h3>
+                    <p class="text-textGray leading-relaxed mb-8">
+                        Use our medical-grade InBody scanners to track body fat, muscle mass, and metabolic rate with
+                        precision.
+                    </p>
+                    <div
+                        class="flex items-center gap-4 text-xs font-bold border-t border-white/10 pt-6 uppercase tracking-widest mt-auto">
+                        <span class="text-primaryRed">Data Driven</span>
+                        <span class="text-white/20">|</span>
+                        <span class="text-white">Monthly</span>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-cardBg border border-white/5 p-10 rounded-xl hover:border-primaryRed/50 transition-all duration-300 group flex flex-col h-full">
+                    <div
+                        class="w-14 h-14 bg-primaryRed/10 rounded-lg flex items-center justify-center mb-6 text-primaryRed">
+                        <i class="fa-solid fa-kit-medical text-3xl"></i>
+                    </div>
+                    <h3
+                        class="font-montserrat text-2xl font-black italic mb-4 uppercase group-hover:text-primaryRed transition-colors">
+                        Mobility & Rehab</h3>
+                    <p class="text-textGray leading-relaxed mb-8">
+                        Stay in the game longer. Our mobility sessions focus on joint health and recovery techniques for
+                        heavy lifters.
+                    </p>
+                    <div
+                        class="flex items-center gap-4 text-xs font-bold border-t border-white/10 pt-6 uppercase tracking-widest mt-auto">
+                        <span class="text-primaryRed">Recovery</span>
+                        <span class="text-white/20">|</span>
+                        <span class="text-white">Flexibility</span>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-cardBg border border-white/5 p-10 rounded-xl hover:border-primaryRed/50 transition-all duration-300 group flex flex-col h-full">
+                    <div
+                        class="w-14 h-14 bg-primaryRed/10 rounded-lg flex items-center justify-center mb-6 text-primaryRed">
+                        <i class="fa-solid fa-key text-3xl"></i>
+                    </div>
+                    <h3
+                        class="font-montserrat text-2xl font-black italic mb-4 uppercase group-hover:text-primaryRed transition-colors">
+                        Elite Facilities</h3>
+                    <p class="text-textGray leading-relaxed mb-8">
+                        State-of-the-art equipment and 24/7 access for premium members. No excuses, just iron and
+                        dedication.
+                    </p>
+                    <div
+                        class="flex items-center gap-4 text-xs font-bold border-t border-white/10 pt-6 uppercase tracking-widest mt-auto">
+                        <span class="text-primaryRed">24/7 Access</span>
+                        <span class="text-white/20">|</span>
+                        <span class="text-white">Secure</span>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-cardBg border-2 border-dashed border-white/10 p-10 rounded-xl flex flex-col items-center justify-center text-center h-full">
+                    <h3 class="font-montserrat text-xl font-black italic mb-2 uppercase">Custom Package?</h3>
+                    <p class="text-textGray text-sm flex-grow mb-4">Need a specialized training and diet combo?</p>
+                    <div
+                        class="w-24 h-24 bg-primaryRed/10 rounded-lg flex items-center justify-center mb-10 text-primaryRed">
+                        <i class="fa-solid fa-phone text-3xl"></i>
+                    </div>
+                    <a href="contact.html"
+                        class="bg-primaryRed text-white px-8 py-3 font-black uppercase text-xs hover:brightness-110 transition-all rounded-full mt-auto">
+                        Contact Us
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-24 px-[8%] bg-[#0f0f0f] overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                <div class="max-w-2xl">
+                    <h3 class="text-primaryRed font-bold uppercase tracking-[0.3em] text-sm mb-4">Testimonials</h3>
+                    <h2
+                        class="font-montserrat text-4xl md:text-5xl font-black uppercase text-white italic leading-tight">
+                        Soldiers of <span class="text-primaryRed">Iron</span>
+                    </h2>
+                </div>
+
+            </div>
+
+            <!-- Slider Container -->
+            <div class="relative overflow-hidden rounded-3xl border border-white/5 shadow-2xl bg-[#1a1a1a]">
+                <!-- Track -->
+                <div id="testimonial-track" class="flex transition-transform duration-700 ease-out w-full">
+
+                    <!-- Slide 1 -->
+                    <div class="testimonial-slide w-full flex-shrink-0 grid grid-cols-1 lg:grid-cols-12 min-w-full">
+                        <div class="lg:col-span-5 h-[400px] lg:h-[500px]">
+                            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop"
+                                class="w-full h-full object-cover grayscale" alt="Member 1">
+                        </div>
+                        <div class="lg:col-span-7 p-10 md:p-16 flex flex-col justify-center relative bg-[#1a1a1a]">
+                            <i class="fa-solid fa-quote-right absolute top-10 right-10 text-8xl text-white/5"></i>
+                            <div class="flex gap-1 mb-6 text-primaryRed">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                    class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                    class="fa-solid fa-star"></i>
+                            </div>
+                            <p
+                                class="font-montserrat text-2xl md:text-3xl font-medium italic text-white leading-relaxed mb-8">
+                                "The atmosphere here is electric. I've been to many gyms, but none have the 'Iron Forge'
+                                spirit that Gym Rat offers. My bench press went up 40lbs in 3 months."
+                            </p>
+                            <h4 class="font-montserrat text-xl font-black uppercase italic text-white">James "Tank"
+                                Miller
+                            </h4>
+                            <p class="text-primaryRed font-bold text-xs uppercase tracking-widest mt-1">Elite Member</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="testimonial-slide w-full flex-shrink-0 grid grid-cols-1 lg:grid-cols-12 min-w-full">
+                        <div class="lg:col-span-5 h-[400px] lg:h-[500px]">
+                            <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=800&auto=format&fit=crop"
+                                class="w-full h-full object-cover grayscale" alt="Member 2">
+                        </div>
+                        <div class="lg:col-span-7 p-10 md:p-16 flex flex-col justify-center relative bg-[#1a1a1a]">
+                            <i class="fa-solid fa-quote-right absolute top-10 right-10 text-8xl text-white/5"></i>
+                            <div class="flex gap-1 mb-6 text-primaryRed">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                    class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                    class="fa-solid fa-star"></i>
+                            </div>
+                            <p
+                                class="font-montserrat text-2xl md:text-3xl font-medium italic text-white leading-relaxed mb-8">
+                                "Finally a place that takes training seriously. The trainers don't just watch; they
+                                motivate. It's a community of beasts."
+                            </p>
+                            <h4 class="font-montserrat text-xl font-black uppercase italic text-white">Sarah Jenkins
+                            </h4>
+                            <p class="text-primaryRed font-bold text-xs uppercase tracking-widest mt-1">Pro Member</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3 (New) -->
+                    <div class="testimonial-slide w-full flex-shrink-0 grid grid-cols-1 lg:grid-cols-12 min-w-full">
+                        <div class="lg:col-span-5 h-[400px] lg:h-[500px]">
+                            <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop"
+                                class="w-full h-full object-cover grayscale" alt="Member 3">
+                        </div>
+                        <div class="lg:col-span-7 p-10 md:p-16 flex flex-col justify-center relative bg-[#1a1a1a]">
+                            <i class="fa-solid fa-quote-right absolute top-10 right-10 text-8xl text-white/5"></i>
+                            <div class="flex gap-1 mb-6 text-primaryRed">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                    class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                    class="fa-solid fa-star"></i>
+                            </div>
+                            <p
+                                class="font-montserrat text-2xl md:text-3xl font-medium italic text-white leading-relaxed mb-8">
+                                "The recovery facilities are a game changer. After a heavy leg day, the sauna and cryo
+                                room keep me ready for the next session."
+                            </p>
+                            <h4 class="font-montserrat text-xl font-black uppercase italic text-white">David Chen</h4>
+                            <p class="text-primaryRed font-bold text-xs uppercase tracking-widest mt-1">CrossFit Athlete
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="./assets/js/testimonials.js"></script>
+
+    <!-- Membership Plans Section -->
+    <section id="membership" class="py-16 px-[8%] bg-darkBg">
+        <div class="max-w-5xl mx-auto text-center">
+
+
+            <div class="mb-12">
+                <h3 class="text-primaryRed font-bold uppercase tracking-widest text-[10px] mb-2">
+                    Membership
+                </h3>
+                <h2 class="font-montserrat text-4xl md:text-5xl font-black uppercase text-white italic leading-tight">
+                    Choose Your <span class="text-primaryRed">Plan</span>
+                </h2>
+            </div>
+
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+
+
+                <div
+                    class="bg-cardBg border border-white/5 p-8 rounded-3xl flex flex-col h-full hover:border-primaryRed/30 transition-all">
+                    <div class="flex-grow">
+                        <div class="min-h-[100px]">
+                            <h3 class="font-montserrat text-xl font-black uppercase italic text-white mb-2">
+                                Starter
+                            </h3>
+                            <p class="text-textGray text-[10px] mb-4 uppercase font-bold tracking-widest">
+                                Perfect for beginners
+                            </p>
+                        </div>
+
+                        <div class="mb-8">
+                            <span class="text-5xl font-black text-white">$29</span>
+                            <span class="text-textGray text-xs font-bold">/MONTH</span>
+                        </div>
+
+                        <ul class="text-left space-y-4 text-sm text-white/70">
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-circle-check text-primaryRed"></i>
+                                Basic Gym Access
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-circle-check text-primaryRed"></i>
+                                Locker Room Access
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-circle-check text-primaryRed"></i>
+                                Standard Equipment
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-circle-check text-primaryRed"></i>
+                                Mobile App Access
+                            </li>
+                        </ul>
+                    </div>
+
+                    <a href="booking.html"
+                        class="mt-10 block w-full border border-primaryRed text-primaryRed py-4 rounded-full font-black uppercase text-xs hover:bg-primaryRed hover:text-white transition-all text-center">
+                        Get Started
+                    </a>
+                </div>
+
+
+                <div
+                    class="relative bg-cardBg border-2 border-primaryRed p-8 rounded-3xl flex flex-col h-full shadow-2xl shadow-primaryRed/20 transform scale-105 z-10">
+
+                    <span
+                        class="absolute -top-4 left-1/2 -translate-x-1/2 bg-primaryRed text-white px-4 py-1.5 text-[10px] font-black uppercase rounded-full shadow-lg">
+                        MOST POPULAR
+                    </span>
+
+                    <div class="flex-grow">
+                        <div class="min-h-[100px]">
+                            <h3 class="font-montserrat text-xl font-black uppercase italic text-white mb-2">
+                                Elite
+                            </h3>
+                            <p class="text-textGray text-[10px] mb-4 uppercase font-bold tracking-widest">
+                                Most popular choice
+                            </p>
+                        </div>
+
+                        <div class="mb-8">
+                            <span class="text-5xl font-black text-white">$59</span>
+                            <span class="text-textGray text-xs font-bold">/MONTH</span>
+                        </div>
+
+                        <ul class="text-left space-y-4 text-sm text-white/70">
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-circle-check text-primaryRed"></i>
+                                All Starter Features
+                            </li>
+                            <li class="flex items-center gap-3 font-bold text-white">
+                                <i class="fa-solid fa-circle-check text-primaryRed"></i>
+                                Unlimited Group Classes
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-circle-check text-primaryRed"></i>
+                                Personal Training (2x/mo)
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-circle-check text-primaryRed"></i>
+                                Nutrition Consultation
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-circle-check text-primaryRed"></i>
+                                Sauna & Recovery Room
+                            </li>
+                        </ul>
+                    </div>
+
+                    <a href="booking.html"
+                        class="mt-10 block w-full bg-primaryRed text-white py-4 rounded-full font-black uppercase text-xs hover:brightness-110 hover:shadow-xl transition-all text-center shadow-lg shadow-primaryRed/30">
+                        Get Started
+                    </a>
+                </div>
+
+
+                <div
+                    class="bg-cardBg border border-white/5 p-8 rounded-3xl flex flex-col h-full hover:border-primaryRed/30 transition-all">
+                    <div class="flex-grow">
+                        <div class="min-h-[100px]">
+                            <h3 class="font-montserrat text-xl font-black uppercase italic text-white mb-2">
+                                Immortal
+                            </h3>
+                            <p class="text-textGray text-[10px] mb-4 uppercase font-bold tracking-widest">
+                                For serious athletes
+                            </p>
+                        </div>
+
+                        <div class="mb-8">
+                            <span class="text-5xl font-black text-white">$99</span>
+                            <span class="text-textGray text-xs font-bold">/MONTH</span>
+                        </div>
+
+                        <ul class="text-left space-y-4 text-sm text-white/70">
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-circle-check text-primaryRed"></i>
+                                All Elite Features
+                            </li>
+                            <li class="flex items-center gap-3 font-bold text-white">
+                                <i class="fa-solid fa-circle-check text-primaryRed"></i>
+                                Unlimited PT Sessions
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-circle-check text-primaryRed"></i>
+                                Priority Booking
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-circle-check text-primaryRed"></i>
+                                Guest Passes (4x/mo)
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-circle-check text-primaryRed"></i>
+                                Exclusive Events
+                            </li>
+                            <li class="flex items-center gap-3 border-t border-white/5 pt-2">
+                                <i class="fa-solid fa-circle-check text-primaryRed"></i>
+                                Custom Workout Plans
+                            </li>
+                        </ul>
+                    </div>
+
+                    <a href="booking.html"
+                        class="mt-10 block w-full border border-primaryRed text-primaryRed py-4 rounded-full font-black uppercase text-xs hover:bg-primaryRed hover:text-white transition-all text-center">
+                        Get Started
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-[8%] bg-[#0f0f0f]">
+        <div class="max-w-7xl mx-auto">
+
+            <div class="mb-16">
+                <h3 class="text-primaryRed font-bold uppercase tracking-[0.2em] text-sm mb-4">Contact Us</h3>
+                <h2 class="font-montserrat text-5xl md:text-7xl font-black uppercase text-white italic leading-tight">
+                    Ready To <span class="text-primaryRed">Start?</span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+
+                <div class="space-y-12">
+                    <div>
+                        <h4 class="font-montserrat text-2xl font-black uppercase italic text-white mb-6">Forge Your
+                            Legend</h4>
+                        <p class="text-textGray text-lg leading-relaxed max-w-lg">
+                            Have a question about our elite programs or specialized equipment? Our team is ready to help
+                            you start your journey.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        <div class="group">
+                            <div
+                                class="w-12 h-12 bg-[#1a1a1a] border border-white/5 flex items-center justify-center text-primaryRed mb-4 group-hover:border-primaryRed transition-all">
+                                <i class="fa-solid fa-location-dot text-xl"></i>
+                            </div>
+                            <h5 class="text-white font-black uppercase italic text-sm mb-1 tracking-widest">Location
+                            </h5>
+                            <p class="text-textGray text-sm">123 Iron Street, Muscle Bay, FL</p>
+                        </div>
+
+                        <div class="group">
+                            <div
+                                class="w-12 h-12 bg-[#1a1a1a] border border-white/5 flex items-center justify-center text-primaryRed mb-4 group-hover:border-primaryRed transition-all">
+                                <i class="fa-solid fa-phone text-xl"></i>
+                            </div>
+                            <h5 class="text-white font-black uppercase italic text-sm mb-1 tracking-widest">Phone</h5>
+                            <p class="text-textGray text-sm">+1 (555) 800-IRON</p>
+                        </div>
+
+                        <div class="group">
+                            <div
+                                class="w-12 h-12 bg-[#1a1a1a] border border-white/5 flex items-center justify-center text-primaryRed mb-4 group-hover:border-primaryRed transition-all">
+                                <i class="fa-solid fa-envelope text-xl"></i>
+                            </div>
+                            <h5 class="text-white font-black uppercase italic text-sm mb-1 tracking-widest">Email</h5>
+                            <p class="text-textGray text-sm">support@gymrat.com</p>
+                        </div>
+
+                        <div class="group">
+                            <div
+                                class="w-12 h-12 bg-[#1a1a1a] border border-white/5 flex items-center justify-center text-primaryRed mb-4 group-hover:border-primaryRed transition-all">
+                                <i class="fa-solid fa-clock text-xl"></i>
+                            </div>
+                            <h5 class="text-white font-black uppercase italic text-sm mb-1 tracking-widest">Hours</h5>
+                            <p class="text-textGray text-sm">24/7 Access For Members</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-[#1a1a1a] p-10 md:p-12 rounded-2xl border border-white/5 shadow-2xl">
+                    <div id="contact-response"
+                        class="hidden p-4 mb-4 text-sm font-bold uppercase tracking-widest rounded-lg"></div>
+                    <form id="contact-form" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" id="name" name="name" placeholder="NAME" required
+                                class="bg-cardBg border border-white/5 p-6 focus:border-primaryRed outline-none transition-all font-bold text-[10px] tracking-widest">
+                            <input type="email" id="email" name="email" placeholder="EMAIL" required
+                                class="bg-cardBg border border-white/5 p-6 focus:border-primaryRed outline-none transition-all font-bold text-[10px] tracking-widest">
+                        </div>
+                        <textarea id="message" name="message" rows="4" placeholder="HOW CAN WE HELP?" required
+                            class="w-full bg-cardBg border border-white/5 p-6 focus:border-primaryRed outline-none transition-all font-bold text-[10px] tracking-widest"></textarea>
+                        <button type="submit" id="submit-btn"
+                            class="w-full bg-primaryRed text-white p-6 font-black uppercase text-xs tracking-[4px] hover:bg-white hover:text-black transition-all disabled:opacity-50 disabled:cursor-not-allowed rounded-full">
+                            <span id="btn-text">SEND MESSAGE</span>
+                            <span id="btn-loader" class="hidden"><i class="fa-solid fa-spinner fa-spin"></i>
+                                SENDING...</span>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#0a0a0a] border-t border-white/5 pt-20 pb-10 px-[8%]">
+        <div class="max-w-7xl mx-auto">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+
+                <div class="space-y-6">
+                    <a href="index.html" class="flex items-center gap-3">
+                        <img src="./assets/img/logo.png" alt="Gym Rat Logo" class="h-10 w-auto">
+                        <span class="font-montserrat text-2xl font-black italic text-white tracking-tighter">
+                            GYM<span class="text-primaryRed">RAT</span>
+                        </span>
+                    </a>
+                    <div class="flex gap-4">
+                        <a href="#"
+                            class="w-10 h-10 bg-[#1a1a1a] flex items-center justify-center text-white hover:bg-primaryRed transition-all">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 bg-[#1a1a1a] flex items-center justify-center text-white hover:bg-primaryRed transition-all">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 bg-[#1a1a1a] flex items-center justify-center text-white hover:bg-primaryRed transition-all">
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-montserrat text-lg font-black uppercase italic text-white mb-6">Quick Links</h4>
+                    <ul class="space-y-4 text-sm text-textGray">
+                        <li><a href="index.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Home</a>
+                        </li>
+                        <li><a href="recovery.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Home2</a>
+                        </li>
+                        <li><a href="about.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">About
+                                Us</a></li>
+                        <li><a href="program.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Programs</a>
+                        </li>
+                        <li><a href="services.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Services</a>
+                        </li>
+                        <li><a href="pricing.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Membership</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-montserrat text-lg font-black uppercase italic text-white mb-6">Support</h4>
+                    <ul class="space-y-4 text-sm text-textGray">
+                        <li><a href="policy.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Privacy
+                                Policy</a></li>
+                        <li><a href="terms.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Terms
+                                of Service</a></li>
+                        <li><a href="contact.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-montserrat text-lg font-black uppercase italic text-white mb-6">The Forge</h4>
+                    <ul class="space-y-4 text-sm text-textGray">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot text-primaryRed mt-1"></i>
+                            <span>123 Iron Street,<br>Muscle Bay, FL 33101</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-phone text-primaryRed"></i>
+                            <span>+1 (555) 800-IRON</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-envelope text-primaryRed"></i>
+                            <span>support@gymrat.com</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div
+                class="pt-8 border-t border-white/5 text-center items-center gap-4 text-[10px] font-bold uppercase tracking-[2px] text-white/30">
+                <p>© 2024 GYM RAT ELITE FITNESS. ALL RIGHTS RESERVED.</p>
+               
+            </div>
+        </div>
+    </footer>
+    <script type="module" src="assets/js/auth.js"></script>
+    <script type="module" src="assets/js/contact.js"></script>
+    <script src="assets/js/navbar.js"></script>
+</body>
+
+</html>

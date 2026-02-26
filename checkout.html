@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+    <title>Secure Checkout | GYM RAT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,900&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primaryRed: '#e63946',
+                        darkBg: '#0f0f0f',
+                        cardBg: '#161616',
+                        textGray: '#a0a0a0',
+                    },
+                    fontFamily: {
+                        montserrat: ['Montserrat', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        input:focus {
+            outline: none;
+            border-color: #e63946;
+            box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-darkBg text-white font-inter selection:bg-primaryRed overflow-x-hidden min-h-screen flex flex-col">
+
+        <!-- Navigation Header -->
+    <header
+        class="fixed top-0 w-full z-50 bg-darkBg/95 backdrop-blur-md border-b border-white/10 px-[4%] xl:px-[8%] py-5 flex justify-between items-center transition-all">
+        <a href="index.html"
+            class="flex items-center gap-2.5 font-montserrat font-black text-3xl italic tracking-tighter">
+            <img src="./assets/img/logo.png" alt="logo" class="h-12 w-12">
+            <span>GYM<span class="text-primaryRed">RAT</span></span>
+        </a>
+        <nav class="hidden lg:block">
+            <ul
+                class="flex items-center lg:gap-4 xl:gap-8 uppercase lg:text-[11px] xl:text-sm font-bold tracking-wider">
+                <li><a href="index.html" class="hover:text-primaryRed transition-colors">Home</a></li>
+                <li><a href="recovery.html" class="hover:text-primaryRed transition-colors">Home2</a></li>
+                <li><a href="about.html" class="hover:text-primaryRed transition-colors">About</a></li>
+                <li><a href="program.html" class="hover:text-primaryRed transition-colors">Programs</a></li>
+                <li><a href="services.html" class="hover:text-primaryRed transition-colors">Services</a>
+                </li>
+                <li><a href="contact.html" class="hover:text-primaryRed transition-colors">Contact</a></li>
+                <li><a href="booking.html"
+                        class="bg-primaryRed px-6 py-3 rounded-full font-black text-xs hover:brightness-110 shadow-lg shadow-primaryRed/20 transition-all uppercase">Join
+                        Now</a></li>
+            </ul>
+        </nav>
+
+        <!-- Hamburger Menu Button -->
+        <button id="mobile-menu-btn" class="lg:hidden text-2xl text-white ml-4 focus:outline-none"
+            aria-expanded="false">
+            <i id="icon-open" class="fa-solid fa-bars"></i>
+            <i id="icon-close" class="fa-solid fa-xmark hidden"></i>
+        </button>
+
+        <!-- Auth Icon & Dropdown -->
+        <div id="auth-container" class="relative ml-4 cursor-pointer group hidden lg:block">
+            <div id="auth-icon" class="text-2xl hover:text-primaryRed transition-colors">
+                <i class="fa-solid fa-circle-user"></i>
+            </div>
+            <ul id="auth-dropdown"
+                class="absolute right-0 mt-4 w-48 bg-cardBg border border-white/10 py-3 hidden flex-col shadow-2xl origin-top-right z-[100] rounded-lg">
+                <!-- Content injected by auth.js -->
+            </ul>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Container -->
+    <div id="mobile-menu"
+        class="fixed top-[88px] left-0 w-full bg-darkBg/95 backdrop-blur-md border-b border-white/10 p-6 hidden flex-col gap-4 transform -translate-y-5 opacity-0 transition-all duration-300 lg:hidden z-40 shadow-2xl">
+        <nav class="flex flex-col gap-6 uppercase text-sm font-bold tracking-wider text-center">
+            <a href="index.html" class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">Home</a>
+            <a href="recovery.html"
+                class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">Home2</a>
+            <a href="about.html" class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">About</a>
+            <a href="program.html"
+                class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">Programs</a>
+            <a href="services.html"
+                class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">Services</a>
+            <a href="contact.html"
+                class="hover:text-primaryRed transition-colors py-2 border-b border-white/5">Contact</a>
+
+            <!-- Auth for Mobile (Simplified) -->
+            <a href="login.html"
+                class="hover:text-primaryRed transition-colors py-2 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-circle-user"></i> Account
+            </a>
+
+            <a href="booking.html"
+                class="bg-primaryRed px-6 py-4 rounded-full font-black text-xs hover:brightness-110 shadow-lg shadow-primaryRed/20 transition-all uppercase mt-2">
+                Join Now
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center py-20 mt-16 px-[5%] relative">
+        <div class="absolute inset-0 opacity-10 pointer-events-none bg-[url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1600')] bg-cover bg-center bg-fixed"></div>
+        
+        <div class="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 relative z-10">
+            
+            <!-- Order Summary -->
+            <div class="space-y-8">
+                <div>
+                    <h1 class="font-montserrat text-4xl lg:text-5xl font-black uppercase italic leading-none tracking-tighter mb-4">
+                        Confirm <br><span class="text-primaryRed">Protocol</span>
+                    </h1>
+                    <p class="text-gray-400 text-sm">You are one step away from unlocking your potential.</p>
+                </div>
+
+                <div class="glass p-8 rounded-2xl relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-50">
+                        <i class="fa-solid fa-dumbbell text-6xl text-white/5 transform rotate-12 group-hover:rotate-0 transition-transform duration-500"></i>
+                    </div>
+                    
+                    <p class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2">Selected Plan</p>
+                    <h2 id="summary-plan-name" class="font-montserrat text-3xl font-black uppercase italic text-white mb-6">Chargement...</h2>
+                    
+                    <div class="flex items-baseline gap-2 mb-8 border-b border-white/10 pb-8">
+                        <div class="flex items-start">
+                            <span class="text-sm mt-1">$</span>
+                            <span id="summary-price" class="text-5xl font-black font-montserrat italic text-white">00</span>
+                        </div>
+                        <span class="text-gray-500 font-bold uppercase text-xs">/ Month</span>
+                        <span class="ml-auto bg-primaryRed/10 text-primaryRed px-3 py-1 rounded text-[10px] font-black uppercase tracking-wider">Recurring</span>
+                    </div>
+
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-xs font-bold text-gray-300">
+                            <div class="w-5 h-5 rounded-full bg-green-500/10 flex items-center justify-center text-green-500 text-[10px]"><i class="fa-solid fa-check"></i></div>
+                            <span>Instant Access Activation</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-xs font-bold text-gray-300">
+                            <div class="w-5 h-5 rounded-full bg-green-500/10 flex items-center justify-center text-green-500 text-[10px]"><i class="fa-solid fa-check"></i></div>
+                            <span>Secure Payment Processing</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-xs font-bold text-gray-300">
+                            <div class="w-5 h-5 rounded-full bg-green-500/10 flex items-center justify-center text-green-500 text-[10px]"><i class="fa-solid fa-check"></i></div>
+                            <span>Cancel Anytime</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Checkout Form -->
+            <div class="bg-cardBg border border-white/10 p-8 md:p-10 rounded-3xl shadow-2xl relative">
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-darkBg border border-white/10 px-6 py-2 rounded-full flex items-center gap-2 shadow-lg">
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-gray-400">Payment Gateway</span>
+                </div>
+
+                <form id="checkout-form" class="space-y-6 mt-4">
+                    
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500">Cardholder Name</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 text-xs"></i>
+                            <input type="text" placeholder="JOHN DOE" required 
+                                class="w-full bg-[#0a0a0a] border border-white/10 rounded-xl py-4 pl-10 pr-4 text-sm font-bold placeholder-gray-700 text-white transition-all uppercase">
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500">Card Number</label>
+                        <div class="relative">
+                            <i class="fa-brands fa-cc-visa absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 text-lg"></i>
+                            <input type="text" placeholder="0000 0000 0000 0000" maxlength="19" required id="card-input"
+                                class="w-full bg-[#0a0a0a] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-sm font-bold placeholder-gray-700 text-white transition-all tracking-widest font-mono">
+                            <div class="absolute right-4 top-1/2 -translate-y-1/2 flex gap-2 opacity-50 grayscale">
+                                <i class="fa-brands fa-cc-mastercard text-white"></i>
+                                <i class="fa-brands fa-cc-amex text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500">Expiry</label>
+                            <input type="text" placeholder="MM/YY" maxlength="5" required 
+                                class="w-full bg-[#0a0a0a] border border-white/10 rounded-xl py-4 px-4 text-center text-sm font-bold placeholder-gray-700 text-white transition-all tracking-widest font-mono">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 flex justify-between">
+                                CVC <i class="fa-solid fa-circle-question text-gray-700 cursor-help" title="3 digits on back"></i>
+                            </label>
+                            <input type="password" placeholder="123" maxlength="3" required 
+                                class="w-full bg-[#0a0a0a] border border-white/10 rounded-xl py-4 px-4 text-center text-sm font-bold placeholder-gray-700 text-white transition-all tracking-widest font-mono">
+                        </div>
+                    </div>
+
+                    <div class="pt-4">
+                        <button type="submit" id="pay-btn" 
+                            class="w-full bg-primaryRed text-white font-black uppercase italic tracking-[2px] py-5 rounded-xl hover:brightness-110 active:scale-[0.98] transition-all shadow-lg shadow-primaryRed/20 flex items-center justify-center gap-3 group">
+                            <span>Complete Purchase</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                        <p class="text-center text-[9px] font-bold text-gray-600 mt-4 uppercase tracking-wider">
+                            <i class="fa-solid fa-check-circle text-green-800 mr-1"></i> Mock Payment Ends Here
+                        </p>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </main>
+<footer class="bg-[#0a0a0a] border-t border-white/5 pt-20 pb-10 px-[8%]">
+        <div class="max-w-7xl mx-auto">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3">
+                        <img src="./assets/img/logo.png" alt="Gym Rat Logo" class="h-10 w-auto">
+                        <span class="font-montserrat text-2xl font-black italic text-white tracking-tighter">
+                            GYM<span class="text-primaryRed">RAT</span>
+                        </span>
+                    </div>
+                    <div class="flex gap-4">
+                        <a href="#"
+                            class="w-10 h-10 bg-[#1a1a1a] flex items-center justify-center text-white hover:bg-primaryRed transition-all">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 bg-[#1a1a1a] flex items-center justify-center text-white hover:bg-primaryRed transition-all">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 bg-[#1a1a1a] flex items-center justify-center text-white hover:bg-primaryRed transition-all">
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-montserrat text-lg font-black uppercase italic text-white mb-6">Quick Links</h4>
+                    <ul class="space-y-4 text-sm text-textGray">
+                        <li><a href="index.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Home</a>
+                        </li>
+                        <li><a href="recovery.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Home2</a>
+                        </li>
+                        <li><a href="about.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">About
+                                Us</a></li>
+                        <li><a href="program.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Programs</a>
+                        </li>
+                        <li><a href="services.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Services</a>
+                        </li>
+                        <li><a href="pricing.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Membership</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-montserrat text-lg font-black uppercase italic text-white mb-6">Support</h4>
+                    <ul class="space-y-4 text-sm text-textGray">
+                        <li><a href="policy.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Privacy
+                                Policy</a></li>
+                        <li><a href="terms.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Terms
+                                of Service</a></li>
+                        <li><a href="contact.html"
+                                class="hover:text-primaryRed transition-colors uppercase font-bold tracking-widest text-[11px]">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-montserrat text-lg font-black uppercase italic text-white mb-6">The Forge</h4>
+                    <ul class="space-y-4 text-sm text-textGray">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot text-primaryRed mt-1"></i>
+                            <span>123 Iron Street,<br>Muscle Bay, FL 33101</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-phone text-primaryRed"></i>
+                            <span>+1 (555) 800-IRON</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-envelope text-primaryRed"></i>
+                            <span>support@gymrat.com</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div
+                class="pt-8 border-t border-white/5 text-center items-center gap-4 text-[10px] font-bold uppercase tracking-[2px] text-white/30">
+                <p>© 2024 GYM RAT ELITE FITNESS. ALL RIGHTS RESERVED.</p>
+                
+            </div>
+        </div>
+    </footer>
+    <script type="module" src="assets/js/checkout.js"></script>
+</body>
+</html>
