@@ -1,0 +1,132 @@
+/* =============================================================
+   GYM RAT — Global Responsive Stylesheet
+   Single source of truth for all responsive header + mobile fixes.
+   This file is linked by ALL pages. Do not duplicate these rules
+   inside <style> tags on individual pages.
+   ============================================================= */
+
+/* ── Header: shared layout values (all breakpoints) ─────────── */
+header {
+    box-sizing: border-box;
+    overflow: visible !important;          /* never clip the auth dropdown */
+}
+
+/* The right-side icon wrapper */
+header .header-icons {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;             /* gap-1 */
+    overflow: visible !important;
+}
+
+/* Auth container */
+#auth-container {
+    position: relative;
+    cursor: pointer;
+    padding: 0.5rem;          /* p-2 — touch target */
+    z-index: 100;
+    overflow: visible !important;
+}
+
+/* Dropdown base (shown / hidden via JS) */
+#auth-dropdown {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    margin-top: 0.625rem;     /* ~10px gap below icon */
+    width: 192px;             /* w-48 */
+    z-index: 9999;
+    display: none;
+    flex-direction: column;
+    overflow: visible !important;
+}
+
+#auth-dropdown.flex {
+    display: flex !important;
+}
+
+/* Hamburger button */
+#mobile-menu-btn {
+    padding: 0.5rem;          /* p-2 — touch target */
+    z-index: 90;
+}
+
+/* ── 360 px mobile fixes ─────────────────────────────────────── */
+@media (max-width: 360px) {
+
+    html,
+    body {
+        overflow-x: hidden !important;
+        position: relative;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        padding-left: 10px !important;
+        padding-right: 12px !important;
+        width: 100% !important;
+        z-index: 2000 !important;
+    }
+
+    /* prevent any direct child div from clipping the dropdown */
+    header > div {
+        overflow: visible !important;
+    }
+
+    section,
+    main {
+        max-width: 100vw !important;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3 {
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        hyphens: auto;
+    }
+
+    /* Large heading scale-down */
+    .text-9xl { font-size: 2.8rem !important; line-height: 1.1 !important; letter-spacing: -0.02em !important; }
+    .text-8xl { font-size: 2.8rem !important; line-height: 1.1 !important; }
+    .font-montserrat.text-7xl { font-size: 2.8rem !important; line-height: 1.1 !important; }
+    .text-6xl { font-size: 2.2rem !important; }
+    .text-5xl { font-size: 2rem !important; }
+
+    section {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+        object-fit: cover;
+    }
+
+    .max-w-4xl,
+    .max-w-7xl,
+    .max-w-xl,
+    .max-w-md {
+        max-width: 100% !important;
+    }
+
+    /* Auth dropdown — keep fully within the right side of the screen */
+    #auth-dropdown {
+        width: 190px !important;
+        max-width: 80vw !important;
+        right: 0 !important;
+        left: auto !important;
+        top: 100% !important;
+        margin-top: 10px !important;
+        z-index: 9999 !important;
+        position: absolute !important;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        background: #161616 !important;
+    }
+}
